@@ -1,8 +1,8 @@
-import { getModule, Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
+import {Action, Module, Mutation, VuexModule} from 'vuex-module-decorators';
 
-@Module({ stateFactory: true })
-class CounterModule extends VuexModule {
-  private count = 0;
+@Module({name: "CounterModule"})
+export default class CounterModule extends VuexModule {
+  public count = 0;
 
   @Mutation
   public increment(delta: number): void {
@@ -29,5 +29,3 @@ class CounterModule extends VuexModule {
   }
 
 }
-
-export default getModule(CounterModule);

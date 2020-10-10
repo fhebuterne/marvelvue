@@ -2,18 +2,35 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue';
+import {getModule} from "vuex-module-decorators";
+import CounterModule from "@/store/CounterModule";
+import {useStore} from "vuex";
+import {Prop} from "vue-property-decorator";
 
 @Options({
   components: {
-    HelloWorld,
+    HelloWorld
   }
 })
 export default class Home extends Vue {
   private test = "coucou";
 
+  @Prop()
+  counterProgress = 0;
+
   mounted() {
-    console.log("wesh : mounted")
+    const store = useStore()
+    const counter = getModule(CounterModule, store)
+    counter.incr()
+    counter.incr()
+    counter.incr()
+
+    store.watch(() => counter.getCount, (value) => {
+      this.counterProgress = value
+    })
+
+    counter.incr()
   }
 }
 </script>
