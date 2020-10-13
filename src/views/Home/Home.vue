@@ -2,24 +2,25 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue';
 import {getModule} from "vuex-module-decorators";
 import CounterModule from "@/store/CounterModule";
 import {useStore} from "vuex";
 import {Prop} from "vue-property-decorator";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faUserSecret)
+library.add(faSearch)
 
 @Options({
-  components: {
-    HelloWorld
-  }
+  components: {}
 })
 export default class Home extends Vue {
-  private test = "coucou";
-
   @Prop()
   counterProgress = 0;
 
   mounted() {
+
     const store = useStore()
     const counter = getModule(CounterModule, store)
     counter.incr()
@@ -34,3 +35,7 @@ export default class Home extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+@import "./Home";
+</style>
