@@ -5,7 +5,7 @@ import {Options, Vue} from 'vue-class-component';
 import {getModule} from "vuex-module-decorators";
 import CounterModule from "@/store/CounterModule";
 import {useStore} from "vuex";
-import {Prop} from "vue-property-decorator";
+import {Prop, Watch} from "vue-property-decorator";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 
@@ -19,8 +19,10 @@ export default class Home extends Vue {
   @Prop()
   counterProgress = 0;
 
-  mounted() {
+  @Prop()
+  characterName = "";
 
+  mounted() {
     const store = useStore()
     const counter = getModule(CounterModule, store)
     counter.incr()
@@ -32,6 +34,13 @@ export default class Home extends Vue {
     })
 
     counter.incr()
+  }
+
+  @Watch('characterName')
+  getSuggestions(val: string, oldVal: string) {
+    console.log(val);
+    console.log(oldVal);
+    console.log("changed ok");
   }
 }
 </script>
