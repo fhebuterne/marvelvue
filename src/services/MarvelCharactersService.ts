@@ -1,6 +1,5 @@
 import {Md5} from "ts-md5";
 import Character from "@/models/marvel/Character";
-import SeriesList from "@/models/marvel/SeriesList";
 
 export default class MarvelCharactersService {
 
@@ -21,10 +20,10 @@ export default class MarvelCharactersService {
             dataTransformer: (response) => {
                 if (response.data.data.results) {
                     response.data.data.results.forEach((result: Character, index: number) => {
-                        response.data.data.results[index].series = response.data.data.results[index].series.items
-                        response.data.data.results[index].series.map((serie: any) => {
-                            serie.id = parseInt(serie.resourceURI.split('public/series/')[1], 10);
-                        });
+                        response.data.data.results[index].series = response.data.data.results[index].series.available
+                        response.data.data.results[index].events = response.data.data.results[index].events.available
+                        response.data.data.results[index].stories = response.data.data.results[index].stories.available
+                        response.data.data.results[index].comics = response.data.data.results[index].comics.available
                     });
                 }
 

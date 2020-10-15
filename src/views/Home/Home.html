@@ -2,7 +2,7 @@
     <div class="col col-lg-2"></div>
     <div class="col-md-auto">
         <img alt="Marvel Logo" src="../../assets/images/marvel-logo.png">
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
             <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">
                         <font-awesome-icon :icon="['fas', 'search']"/>
@@ -12,7 +12,9 @@
         </div>
         <div class="input-group mb-3">
             <ul class="list-group" style="width: 100%">
-                <li class="list-group-item" v-for="character in characters" :key="character.id">{{character.name}} - Nbr. de Séries : {{character.series.length}} - Event : {{character.events}}</li>
+                <li class="list-group-item" v-for="character in characters" :key="character.id">
+                    {{character.name}}
+                </li>
             </ul>
         </div>
     </div>

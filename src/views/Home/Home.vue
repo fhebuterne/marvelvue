@@ -20,7 +20,7 @@ export default class Home extends Vue {
   characterName = ""
 
   get characters() {
-    return Character.all()
+    return Character.all().slice(0, 10)
   }
 
   async mounted() {
