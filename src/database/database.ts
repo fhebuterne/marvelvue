@@ -12,12 +12,14 @@ import SeriesSummary from "@/models/marvel/SeriesSummary";
 import StoryList from "@/models/marvel/StoryList";
 import StorySummary from "@/models/marvel/StorySummary";
 import Url from "@/models/marvel/Url";
+import CharacterSeries from "@/models/marvel/CharacterSeries";
 
 const database = new Database()
 
 database.register(CharacterDataWrapper)
 database.register(CharacterDataContainer)
 database.register(Character)
+database.register(CharacterSeries)
 database.register(ComicList)
 database.register(ComicSummary)
 database.register(EventList)

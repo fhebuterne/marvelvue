@@ -6,16 +6,18 @@ export default class SeriesList extends Model {
 
     static fields () {
         return {
+            id: this.uid(),
             available: this.number(0),
             returned: this.number(0),
             collectionURI: this.string(""),
-            items: this.hasMany(SeriesSummary, 'itemsSeriesSummary')
+            items: this.hasMany(SeriesSummary, 'id')
         }
     }
 
+    id?: number;
     available?: number;
     returned?: number;
     collectionURI?: string;
-    items?: SeriesSummary[];
+    items?: SeriesSummary[] = [];
 
 }

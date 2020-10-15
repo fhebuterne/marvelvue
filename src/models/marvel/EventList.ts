@@ -6,6 +6,7 @@ export default class EventList extends Model {
 
     static fields () {
         return {
+            id: this.uid(),
             available: this.number(0),
             returned: this.number(0),
             collectionURI: this.string(''),
@@ -13,6 +14,7 @@ export default class EventList extends Model {
         }
     }
 
+    id?: string;
     available?: number;
     returned?: number;
     collectionURI?: string;

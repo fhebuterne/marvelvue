@@ -4,7 +4,8 @@ import Image from "@/models/marvel/Image";
 import ComicList from "@/models/marvel/ComicList";
 import StoryList from "@/models/marvel/StoryList";
 import EventList from "@/models/marvel/EventList";
-import SeriesList from "@/models/marvel/SeriesList";
+import SeriesSummary from "@/models/marvel/SeriesSummary";
+import CharacterSeries from "@/models/marvel/CharacterSeries";
 
 export default class Character extends Model {
     static entity = 'character'
@@ -16,12 +17,12 @@ export default class Character extends Model {
             description: this.string(''),
             modified: this.string(''),
             resourceURI: this.string(''),
-            urls: this.hasMany(Url, 'urlsUrl'),
-            thumbnails: this.hasOne(Image, 'thunbnailsImage'),
-            comics: this.hasMany(ComicList, 'comicsComicList'),
-            stories: this.hasMany(StoryList, 'storiesStoryList'),
-            events: this.hasMany(EventList, 'eventsEventList'),
-            series: this.hasMany(SeriesList, 'seriesSeriesList')
+            urls: this.hasMany(Url, 'id'),
+            thumbnails: this.hasOne(Image, 'id'),
+            comics: this.hasMany(ComicList, 'id'),
+            stories: this.hasMany(StoryList, 'id'),
+            events: this.hasMany(EventList, 'id'),
+            series: this.belongsToMany(SeriesSummary, CharacterSeries, 'characterId', 'serieId')
         }
     }
 
@@ -35,6 +36,6 @@ export default class Character extends Model {
     comics?: ComicList;
     stories?: StoryList;
     events?: EventList;
-    series?: SeriesList;
+    series?: SeriesSummary[] = [];
 
 }

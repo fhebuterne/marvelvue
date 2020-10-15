@@ -7,7 +7,6 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import Character from "@/models/marvel/Character";
-import CharacterDataWrapper from "@/models/marvel/CharacterDataWrapper";
 
 library.add(faUserSecret)
 library.add(faSearch)
