@@ -2,12 +2,10 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {getModule} from "vuex-module-decorators";
-import {useStore} from "vuex";
 import {Prop, Watch} from "vue-property-decorator";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
-import MarvelApiModule from "@/store/MarvelApiModule";
+import {marvelCharactersService} from "@/services/MarvelCharactersService";
 
 library.add(faUserSecret)
 library.add(faSearch)
@@ -17,18 +15,14 @@ library.add(faSearch)
 })
 export default class Home extends Vue {
   @Prop()
-  testData: any = "aaaaa";
+  testData: unknown = "aaaaa";
 
   @Prop()
   characterName = "";
 
   mounted() {
-    const store = useStore()
-    const counter = getModule(MarvelApiModule, store)
-    counter.incr()
-
-    store.watch(() => counter.getData, (value) => {
-      this.testData = value
+    marvelCharactersService.getCaracters().then(value => {
+      console.log(value);
     })
   }
 
