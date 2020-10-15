@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import Vuex from 'vuex';
 import database from '@/database/database';
 import VuexORM from '@vuex-orm/core';
