@@ -10,6 +10,11 @@
             </div>
             <input type="text" class="form-control" placeholder="Nom d'un personnage" v-model="characterName">
         </div>
+        <div class="input-group mb-3">
+            <ul class="list-group" style="width: 100%">
+                <li class="list-group-item" v-for="character in characters" :key="character.id">{{character.name}} - Nbr. de Séries : {{character.series.available}}</li>
+            </ul>
+        </div>
     </div>
     <div class="col col-lg-2"></div>
 </div>
@@ -23,5 +28,3 @@
     </div>
     <div class="col col-lg-2"></div>
 </div>
-
-{{testData}}

@@ -1,12 +1,18 @@
 import {Model} from "@vuex-orm/core";
+import CharacterDataContainer from "@/models/marvel/CharacterDataContainer";
 
 export default class CharacterDataWrapper extends Model {
     static entity = 'characterDataWrapper'
 
     static fields () {
         return {
-            code: this.uid(),
-            name: this.string('')
+            code: this.number(404),
+            status: this.string(''),
+            copyright: this.string(''),
+            attributionText: this.string(''),
+            attributionHTML: this.string(''),
+            data: this.belongsTo(CharacterDataContainer, "dataId"),
+            dataId: this.attr('')
         }
     }
 
@@ -15,7 +21,8 @@ export default class CharacterDataWrapper extends Model {
     copyright?: string
     attributionText?: string
     attributionHTML?: string
-    data?: string
+    data?: CharacterDataContainer
+    dataId?: number
     etag?: string
 
 }

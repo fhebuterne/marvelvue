@@ -6,6 +6,8 @@ import {Prop, Watch} from "vue-property-decorator";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
+import Character from "@/models/marvel/Character";
+import CharacterDataWrapper from "@/models/marvel/CharacterDataWrapper";
 
 library.add(faUserSecret)
 library.add(faSearch)
@@ -14,23 +16,21 @@ library.add(faSearch)
   components: {}
 })
 export default class Home extends Vue {
-  @Prop()
-  testData: unknown = "aaaaa";
 
   @Prop()
-  characterName = "";
+  characterName = ""
 
-  mounted() {
-    marvelCharactersService.getCaracters().then(value => {
-      console.log(value);
-    })
+  get characters() {
+    return Character.all()
+  }
+
+  async mounted() {
+    marvelCharactersService.getCharacters();
   }
 
   @Watch('characterName')
-  getSuggestions(val: string, oldVal: string) {
-    console.log(val);
-    console.log(oldVal);
-    console.log("changed ok");
+  getSuggestions(newText: string, oldText: string) {
+    marvelCharactersService.getCharacters(newText);
   }
 }
 </script>

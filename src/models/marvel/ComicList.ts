@@ -7,7 +7,9 @@ export default class ComicList extends Model {
     static fields () {
         return {
             available: this.number(0),
-            returned: this.number(0)
+            returned: this.number(0),
+            collectionURI: this.string(''),
+            items: this.hasMany(ComicSummary, 'itemsComicSummary')
         }
     }
 

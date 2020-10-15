@@ -5,8 +5,9 @@ export default class StorySummary extends Model {
 
     static fields () {
         return {
-            path: this.string(''),
-            extension: this.string('')
+            resourceURI: this.string(''),
+            name: this.string(''),
+            type: this.string('')
         }
     }
 

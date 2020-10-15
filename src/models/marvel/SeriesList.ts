@@ -1,6 +1,5 @@
 import {Model} from "@vuex-orm/core";
-import ComicSummary from "@/models/marvel/ComicSummary";
-import EventSummary from "@/models/marvel/EventSummary";
+import SeriesSummary from "@/models/marvel/SeriesSummary";
 
 export default class SeriesList extends Model {
     static entity = 'seriesList'
@@ -8,13 +7,15 @@ export default class SeriesList extends Model {
     static fields () {
         return {
             available: this.number(0),
-            returned: this.number(0)
+            returned: this.number(0),
+            collectionURI: this.string(""),
+            items: this.hasMany(SeriesSummary, 'itemsSeriesSummary')
         }
     }
 
     available?: number;
     returned?: number;
     collectionURI?: string;
-    items?: EventSummary[];
+    items?: SeriesSummary[];
 
 }

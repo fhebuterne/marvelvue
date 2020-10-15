@@ -16,7 +16,12 @@ export default class Character extends Model {
             description: this.string(''),
             modified: this.string(''),
             resourceURI: this.string(''),
-            urls: this.string('')
+            urls: this.hasMany(Url, 'urlsUrl'),
+            thumbnails: this.hasOne(Image, 'thunbnailsImage'),
+            comics: this.hasMany(ComicList, 'comicsComicList'),
+            stories: this.hasMany(StoryList, 'storiesStoryList'),
+            events: this.hasMany(EventList, 'eventsEventList'),
+            series: this.hasMany(SeriesList, 'seriesSeriesList')
         }
     }
 

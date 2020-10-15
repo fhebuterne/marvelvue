@@ -7,7 +7,9 @@ export default class StoryList extends Model {
     static fields () {
         return {
             available: this.number(0),
-            returned: this.number(0)
+            returned: this.number(0),
+            collectionURI: this.string(""),
+            items: this.hasMany(StorySummary, 'itemsStorySummary')
         }
     }
 

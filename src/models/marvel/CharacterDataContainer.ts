@@ -6,8 +6,11 @@ export default class CharacterDataContainer extends Model {
 
     static fields () {
         return {
-            code: this.uid(),
-            name: this.string('')
+            offset: this.number(0),
+            limit: this.number(20),
+            total: this.number(0),
+            count: this.number(0),
+            results: this.hasMany(Character, "id")
         }
     }
 
