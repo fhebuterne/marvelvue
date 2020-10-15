@@ -3,11 +3,11 @@
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
 import {getModule} from "vuex-module-decorators";
-import CounterModule from "@/store/CounterModule";
 import {useStore} from "vuex";
 import {Prop, Watch} from "vue-property-decorator";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
+import MarvelApiModule from "@/store/MarvelApiModule";
 
 library.add(faUserSecret)
 library.add(faSearch)
@@ -17,23 +17,19 @@ library.add(faSearch)
 })
 export default class Home extends Vue {
   @Prop()
-  counterProgress = 0;
+  testData: any = "aaaaa";
 
   @Prop()
   characterName = "";
 
   mounted() {
     const store = useStore()
-    const counter = getModule(CounterModule, store)
-    counter.incr()
-    counter.incr()
+    const counter = getModule(MarvelApiModule, store)
     counter.incr()
 
-    store.watch(() => counter.getCount, (value) => {
-      this.counterProgress = value
+    store.watch(() => counter.getData, (value) => {
+      this.testData = value
     })
-
-    counter.incr()
   }
 
   @Watch('characterName')

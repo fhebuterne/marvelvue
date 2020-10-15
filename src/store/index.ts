@@ -1,5 +1,5 @@
 import {createStore} from 'vuex'
-import CounterModule from "@/store/CounterModule";
+import MarvelApiModule from "@/store/MarvelApiModule";
 
 export default createStore({
   state: {
@@ -9,6 +9,6 @@ export default createStore({
   actions: {
   },
   modules: {
-    CounterModule
+    MarvelApiModule: MarvelApiModule
   }
 })
