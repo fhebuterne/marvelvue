@@ -1,5 +1,4 @@
 <template>
-  <Navbar></Navbar>
   <div class="container-fluid">
     <router-view/>
   </div>
