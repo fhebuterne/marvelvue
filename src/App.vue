@@ -6,11 +6,10 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import Navbar from "@/components/Navbar/Navbar.vue";
 
 @Options({
   components: {
-    Navbar
+
   }
 })
 export default class App extends Vue {

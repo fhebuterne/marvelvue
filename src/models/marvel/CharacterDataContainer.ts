@@ -1,11 +1,11 @@
-import {Model} from "@vuex-orm/core";
 import Character from "@/models/marvel/Character";
 import CharacterResults from "@/models/marvel/CharacterResults";
+import AbstractDataContainer from "@/models/marvel/AbstractDataContainer";
 
-export default class CharacterDataContainer extends Model {
+export default class CharacterDataContainer extends AbstractDataContainer<Character> {
     static entity = 'characterDataContainer'
 
-    static fields () {
+    static fields() {
         return {
             id: this.uid(),
             offset: this.number(0),
@@ -17,10 +17,10 @@ export default class CharacterDataContainer extends Model {
     }
 
     id?: string;
-    offset?: number
-    limit?: number
-    total?: number
-    count?: number
-    results?: Character[]
+    offset?: number;
+    limit?: number;
+    total?: number;
+    count?: number;
+    results: Character[] = []
 
 }

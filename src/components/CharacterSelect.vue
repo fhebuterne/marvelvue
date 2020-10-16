@@ -1,7 +1,5 @@
 <template>
   <div class="row">
-    <div class="col-3"></div>
-    <div class="col">
       <div class="card mb-3" style="width: 100%;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -18,8 +16,6 @@
         </div>
       </div>
     </div>
-    <div class="col-3"></div>
-  </div>
 </template>
 
 <script lang="ts">
