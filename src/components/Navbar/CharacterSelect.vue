@@ -7,12 +7,12 @@
           <div class="col-md-4">
             <img v-bind:src="character.thumbnail" class="card-img" v-bind:alt="character.id">
           </div>
-          <div class="col-md-4">
+          <div class="col">
             <div class="card-body">
               <h5 class="card-title">{{ character.name }}</h5>
               <p class="card-text" v-html="character.description"></p>
-              <p class="card-text"><small class="text-muted">Dernière modification le {{character.modified}}</small></p>
             </div>
+            <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le {{formattedDate}}</small></div>
           </div>
         </div>
       </div>
@@ -39,16 +39,12 @@ export default class CharacterSelect extends Vue {
   @Prop()
   character: Character = new Character()
 
+  get formattedDate(){
+    if (!this.character.modified) {
+      return "..."
+    }
+    return new Date(this.character.modified).toLocaleString()
+  }
+
 }
 </script>
-
-<style lang='scss'>
-.CharacterImage {
-  width: 100px;
-  height: 100px;
-}
-
-.CharacterSelection {
-  background-color: grey;
-}
-</style>

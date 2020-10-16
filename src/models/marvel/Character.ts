@@ -9,7 +9,7 @@ export default class Character extends Model {
             id: this.uid(),
             name: this.string(''),
             description: this.string(''),
-            modified: this.string(''),
+            modified: this.attr(null),
             resourceURI: this.string(''),
             urls: this.hasMany(Url, 'id'),
             thumbnail: this.string(''),
