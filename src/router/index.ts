@@ -10,12 +10,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/search',
     name: 'Search',
-    component: import('../pages/Search.vue')
+    component: () => import('../pages/Search.vue')
   },
   {
     path: '/character/:id',
     name: 'Character',
-    component: import('../pages/Character.vue')
+    component: () => import('../pages/Character.vue')
   }
 ]
 

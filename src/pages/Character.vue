@@ -30,7 +30,7 @@
         </div>
         <div class="row ml-1">
           v-for comics
-          <!--{{ character.name }}-->
+          {{ comics }}
         </div>
       </div>
       <div class="col-sm bg-light rounded ml-5">
@@ -73,7 +73,8 @@
 import {Options, Vue} from 'vue-class-component';
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faSpinner, faUserSecret} from "@fortawesome/free-solid-svg-icons";
-//import CharacterApi from "@/models/marvel/Character";
+import {marvelComicsService} from "@/services/MarvelComicsService";
+import Comic from "@/models/marvel/comic/Comic";
 
 library.add(faUserSecret)
 library.add(faSearch)
@@ -87,11 +88,12 @@ library.add(faSpinner)
 export default class Character extends Vue {
 
   mounted() {
-    console.log(this.$route.params.id);
+    marvelComicsService.getComicsByCaracters(this.$route.params.id.toString())
   }
 
-  /*get character() {
-    return CharacterApi.all().slice(0, 1)[0];
-  }*/
+  get comics() {
+    return Comic.all();
+  }
+
 }
 </script>

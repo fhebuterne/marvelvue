@@ -1,7 +1,7 @@
 <template>
   <div class="row d-flex align-items-center">
     <div class="col-sm">
-      Résultats par page : {{ paginatedResults.limit }}
+      Résultats par page : {{ paginatedResults?.limit }}
     </div>
     <div class="col-sm">
       <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="col-sm">
-      <span class="float-right">Total : {{ paginatedResults.total }}</span>
+      <span class="float-right">Total : {{ paginatedResults?.total }}</span>
     </div>
   </div>
 </template>
@@ -24,6 +24,7 @@
 import {Options, Vue} from 'vue-class-component';
 import {Prop} from "vue-property-decorator";
 import PaginatedResults from "@/models/base/PaginatedResults";
+import PaginatedEntity from "@/models/base/PaginatedEntity";
 
 @Options({
   components: {}
@@ -31,7 +32,7 @@ import PaginatedResults from "@/models/base/PaginatedResults";
 export default class PaginationRow extends Vue {
 
   @Prop()
-  paginatedResults?: PaginatedResults<any>;
+  paginatedResults?: PaginatedResults<PaginatedEntity>;
 
   get currentPage(): number {
     if (!this.paginatedResults) {

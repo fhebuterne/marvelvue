@@ -20,7 +20,7 @@ import {Options, Vue} from 'vue-class-component';
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faSpinner, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 import CharacterSelect from "@/components/CharacterSelect.vue";
-import CharacterDataContainer from "@/models/marvel/CharacterDataContainer";
+import CharacterDataContainer from "@/models/marvel/character/CharacterDataContainer";
 import PaginationRow from "@/components/PaginationRow.vue";
 
 library.add(faUserSecret)
@@ -36,9 +36,9 @@ library.add(faSpinner)
 export default class Search extends Vue {
 
   mounted() {
-    if (!this.paginatedCharacters || this.paginatedCharacters.results?.length === 0) {
+    /*if (!this.paginatedCharacters || this.paginatedCharacters.results?.length === 0) {
       this.$router.push("/")
-    }
+    }*/
   }
 
   checkCharacter(id: string) {

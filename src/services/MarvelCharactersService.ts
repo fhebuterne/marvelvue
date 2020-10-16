@@ -1,8 +1,8 @@
-import Character from "@/models/marvel/Character";
+import Character from "@/models/marvel/character/Character";
 import {MarvelSearchParams} from "@/models/marvel/MarvelSearchParams";
 import {SearchParameters} from "@/models/base/SearchParameters";
-import CharacterDataContainer from "@/models/marvel/CharacterDataContainer";
-import CharacterResults from "@/models/marvel/CharacterResults";
+import CharacterDataContainer from "@/models/marvel/character/CharacterDataContainer";
+import CharacterResults from "@/models/marvel/character/CharacterResults";
 
 class MarvelCharactersService {
 
@@ -43,10 +43,10 @@ class MarvelCharactersService {
         });
     }
 
-    getCharacter(id: string) {
+    getCharacter(characterId: string) {
         this.resetVuex();
 
-        const currentUrl = `${this.url}/${id}?apikey=${this.publicKey}`
+        const currentUrl = `${this.url}/${characterId}?apikey=${this.publicKey}`
         return CharacterDataContainer.api().get(`${currentUrl}`, {
             dataTransformer: (response) => {
                 return this.transformResultsCaracters(response);

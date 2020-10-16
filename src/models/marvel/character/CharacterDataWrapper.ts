@@ -1,5 +1,5 @@
 import {Model} from "@vuex-orm/core";
-import CharacterDataContainer from "@/models/marvel/CharacterDataContainer";
+import CharacterDataContainer from "@/models/marvel/character/CharacterDataContainer";
 
 export default class CharacterDataWrapper extends Model {
     static entity = 'characterDataWrapper'

@@ -30,7 +30,7 @@
   <div class="row justify-content-center">
     <div class="col"></div>
     <div class="col-auto">
-      <button type="button" class="btn btn-dark" @click="$router.push('search')">Rechercher</button>
+      <button type="button" class="btn btn-dark" @click="this.$router.push('/search')">Rechercher</button>
       <span class="ml-2 mr-2"></span>
       <button type="button" class="btn btn-dark">J'ai de la chance</button>
     </div>
@@ -44,7 +44,7 @@ import {Prop, Watch} from "vue-property-decorator";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faSpinner, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
-import Character from "@/models/marvel/Character";
+import Character from "@/models/marvel/character/Character";
 import {MarvelSearchParams} from "@/models/marvel/MarvelSearchParams";
 
 library.add(faUserSecret)

@@ -23,7 +23,7 @@ import {Options, Vue} from 'vue-class-component';
 import {Prop} from "vue-property-decorator";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
-import Character from "@/models/marvel/Character";
+import Character from "@/models/marvel/character/Character";
 
 library.add(faUserSecret)
 library.add(faSearch)

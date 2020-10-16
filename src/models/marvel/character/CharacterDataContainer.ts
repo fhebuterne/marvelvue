@@ -1,6 +1,6 @@
-import Character from "@/models/marvel/Character";
-import CharacterResults from "@/models/marvel/CharacterResults";
-import AbstractDataContainer from "@/models/marvel/AbstractDataContainer";
+import Character from "@/models/marvel/character/Character";
+import CharacterResults from "@/models/marvel/character/CharacterResults";
+import AbstractDataContainer from "@/models/marvel/base/AbstractDataContainer";
 
 export default class CharacterDataContainer extends AbstractDataContainer<Character> {
     static entity = 'characterDataContainer'
@@ -15,12 +15,5 @@ export default class CharacterDataContainer extends AbstractDataContainer<Charac
             results: this.belongsToMany(Character, CharacterResults, 'id', 'characterId')
         }
     }
-
-    id?: string;
-    offset?: number;
-    limit?: number;
-    total?: number;
-    count?: number;
-    results: Character[] = []
 
 }
