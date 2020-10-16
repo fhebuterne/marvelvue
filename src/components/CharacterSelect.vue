@@ -3,7 +3,7 @@
       <div class="card mb-3" style="width: 100%;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img v-bind:src="character.thumbnail" class="card-img" v-bind:alt="character.id">
+            <img v-bind:src="character.thumbnail" class="card-img" v-bind:alt="character.id" v-if="character.thumbnail">
           </div>
           <div class="col">
             <div class="card-body">
