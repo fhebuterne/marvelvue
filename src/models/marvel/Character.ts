@@ -1,6 +1,5 @@
 import {Model} from "@vuex-orm/core";
 import Url from "@/models/marvel/Url";
-import Image from "@/models/marvel/Image";
 
 export default class Character extends Model {
     static entity = 'character'
@@ -13,7 +12,7 @@ export default class Character extends Model {
             modified: this.string(''),
             resourceURI: this.string(''),
             urls: this.hasMany(Url, 'id'),
-            thumbnail: this.hasOne(Image, 'id'),
+            thumbnail: this.string(''),
             comics: this.number(0),
             stories: this.number(0),
             events: this.number(0),
@@ -27,7 +26,7 @@ export default class Character extends Model {
     modified?: Date;
     resourceURI?: string;
     urls?: Url[];
-    thumbnails?: Image;
+    thumbnail?: string;
     comics?: number;
     stories?: number;
     events?: number;
