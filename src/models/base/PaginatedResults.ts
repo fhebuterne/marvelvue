@@ -1,4 +1,4 @@
-import PaginatedEntity from "@/models/base/Paginated";
+import PaginatedEntity from "@/models/base/PaginatedEntity";
 
 export default interface PaginatedResults<T extends PaginatedEntity> {
     offset?: number;

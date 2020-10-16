@@ -13,7 +13,7 @@ class MarvelComicsService {
         ComicDataContainer.deleteAll();
     }
 
-    getComicsByCaracters(characterId: string) {
+    getComicsByCharacters(characterId: string) {
         this.resetVuex();
 
         const currentUrl = `${this.url}/${characterId}/comics?apikey=${this.publicKey}`

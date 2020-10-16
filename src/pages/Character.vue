@@ -13,7 +13,8 @@
                 <!--h5 class="card-title">{{ character.name }}</h5-->
                 <!--p class="card-text" v-html="character.description"></p-->
               </div>
-              <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le <!--{{formattedDate}}--></small></div>
+              <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le
+                <!--{{formattedDate}}--></small></div>
             </div>
           </div>
         </div>
@@ -40,7 +41,7 @@
           </div>
         </div>
         <div class="row ml-1">
-          v-for events
+          {{ events }}
         </div>
       </div>
     </div>
@@ -75,24 +76,30 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSearch, faSpinner, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 import {marvelComicsService} from "@/services/MarvelComicsService";
 import Comic from "@/models/marvel/comic/Comic";
+import {marvelEventsService} from "@/services/MarvelEventsService";
+import Event from "@/models/marvel/event/Event";
 
 library.add(faUserSecret)
 library.add(faSearch)
 library.add(faSpinner)
 
 @Options({
-  components: {
-
-  }
+  components: {}
 })
 export default class Character extends Vue {
 
   mounted() {
-    marvelComicsService.getComicsByCaracters(this.$route.params.id.toString())
+    const characterId = this.$route.params.id.toString();
+    marvelComicsService.getComicsByCharacters(characterId);
+    marvelEventsService.getEventsByCharacter(characterId);
   }
 
   get comics() {
     return Comic.all();
+  }
+
+  get events() {
+    return Event.all();
   }
 
 }
