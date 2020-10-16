@@ -4,6 +4,7 @@ import CharacterDataContainer from "@/models/marvel/CharacterDataContainer";
 import Character from "@/models/marvel/Character";
 import Url from "@/models/marvel/Url";
 import CharacterSeries from "@/models/marvel/CharacterSeries";
+import CharacterResults from "@/models/marvel/CharacterResults";
 
 const database = new Database()
 
@@ -12,5 +13,6 @@ database.register(CharacterDataContainer)
 database.register(Character)
 database.register(CharacterSeries)
 database.register(Url)
+database.register(CharacterResults)
 
 export default database

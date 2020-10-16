@@ -6,6 +6,14 @@ export class SearchParameters {
         this.params.forEach((value, key) => {
             concatenation += key + "=" + value + "&"
         })
-        return concatenation
+        return concatenation;
+    }
+
+    static objToParams(obj: object) {
+        let concatenation = "";
+        for (const [key, value] of Object.entries(obj)) {
+            concatenation += key + "=" + value + "&"
+        }
+        return concatenation;
     }
 }

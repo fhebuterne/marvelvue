@@ -12,7 +12,8 @@
               <h5 class="card-title">{{ character.name }}</h5>
               <p class="card-text" v-html="character.description"></p>
             </div>
-            <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le {{formattedDate}}</small></div>
+            <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le
+              {{ formattedDate }}</small></div>
           </div>
         </div>
       </div>
@@ -39,7 +40,7 @@ export default class CharacterSelect extends Vue {
   @Prop()
   character: Character = new Character()
 
-  get formattedDate(){
+  get formattedDate() {
     if (!this.character.modified) {
       return "..."
     }

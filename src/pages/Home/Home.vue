@@ -8,6 +8,7 @@ import {faSearch, faSpinner, faUserSecret} from "@fortawesome/free-solid-svg-ico
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import Character from "@/models/marvel/Character";
 import {SearchParameters} from "@/models/base/SearchParameters";
+import {MarvelSearchParams} from "@/models/marvel/MarvelSearchParams";
 
 library.add(faUserSecret)
 library.add(faSearch)
@@ -28,13 +29,17 @@ export default class Home extends Vue {
     return Character.all().slice(0, 10)
   }
 
+  checkCharacter(id: string) {
+    this.$router.push(`/character/${id}`);
+  }
+
   @Watch('characterName')
   getSuggestions(newText: string, oldText: string) {
-    const searchParameters = new SearchParameters();
-    searchParameters.params.set("nameStartsWith", newText)
+    const marvelSearchParams = new MarvelSearchParams();
+    marvelSearchParams.nameStartsWith = newText;
 
     this.isLoading = true;
-    marvelCharactersService.getCharacters(searchParameters).finally(() => {
+    marvelCharactersService.getCharacters(marvelSearchParams).finally(() => {
       this.isLoading = false;
     });
   }

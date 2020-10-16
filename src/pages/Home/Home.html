@@ -17,7 +17,7 @@
         </div>
         <div class="input-group mb-3">
             <ul class="list-group shadow" style="width: 100%">
-                <li class="list-group-item" v-for="character in characters" :key="character.id">
+                <li class="list-group-item" v-for="character in characters" :key="character.id" v-on:click="this.checkCharacter(character.id)">
                     {{ character.name }}
                 </li>
             </ul>
