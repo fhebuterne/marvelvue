@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="row ml-1">
-          v-for series
+          {{ series }}
         </div>
       </div>
       <div class="col-sm bg-light rounded ml-5">
@@ -78,6 +78,8 @@ import {marvelComicsService} from "@/services/MarvelComicsService";
 import Comic from "@/models/marvel/comic/Comic";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import Event from "@/models/marvel/event/Event";
+import {marvelSeriesService} from "@/services/MarvelSeriesService";
+import Serie from "@/models/marvel/serie/Serie";
 
 library.add(faUserSecret)
 library.add(faSearch)
@@ -92,6 +94,7 @@ export default class Character extends Vue {
     const characterId = this.$route.params.id.toString();
     marvelComicsService.getComicsByCharacters(characterId);
     marvelEventsService.getEventsByCharacter(characterId);
+    marvelSeriesService.getSeriesByCharacter(characterId);
   }
 
   get comics() {
@@ -100,6 +103,10 @@ export default class Character extends Vue {
 
   get events() {
     return Event.all();
+  }
+
+  get series() {
+    return Serie.all();
   }
 
 }

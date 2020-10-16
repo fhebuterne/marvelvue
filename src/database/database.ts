@@ -10,6 +10,9 @@ import ComicResults from "@/models/marvel/comic/ComicResults";
 import Event from "@/models/marvel/event/Event";
 import EventDataContainer from "@/models/marvel/event/EventDataContainer";
 import EventResults from "@/models/marvel/event/EventResults";
+import Serie from "@/models/marvel/serie/Serie";
+import SerieDataContainer from "@/models/marvel/serie/SerieDataContainer";
+import SerieResults from "@/models/marvel/serie/SerieResults";
 
 const database = new Database()
 
@@ -27,5 +30,9 @@ database.register(ComicResults)
 database.register(Event)
 database.register(EventDataContainer)
 database.register(EventResults)
+
+database.register(Serie)
+database.register(SerieDataContainer)
+database.register(SerieResults)
 
 export default database

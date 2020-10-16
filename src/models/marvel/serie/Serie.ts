@@ -2,8 +2,8 @@ import {Model} from "@vuex-orm/core";
 import Url from "@/models/marvel/Url";
 import PaginatedEntity from "@/models/base/PaginatedEntity";
 
-export default class Event extends Model implements PaginatedEntity {
-    static entity = 'event'
+export default class Serie extends Model implements PaginatedEntity {
+    static entity = 'serie'
 
     static fields() {
         return {
@@ -12,7 +12,10 @@ export default class Event extends Model implements PaginatedEntity {
             description: this.string(''),
             modified: this.attr(null),
             resourceURI: this.string(''),
-            urls: this.attr(null)
+            urls: this.attr(null),
+            startYear: this.number(0),
+            endYear: this.number(0),
+            rating: this.string('')
         }
     }
 
@@ -22,6 +25,8 @@ export default class Event extends Model implements PaginatedEntity {
     modified?: Date;
     resourceURI?: string;
     urls?: Url[];
-
+    startYear?: number;
+    endYear?: number;
+    rating?: string;
 
 }
