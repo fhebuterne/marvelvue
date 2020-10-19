@@ -93,7 +93,7 @@
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Stories
+            Les histoires lié au personnage <b>{{character?.name}}</b>
           </div>
           <div class="card-body">
             <table class="table table-hover">
