@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col">
-        <CharacterSelect :character="character"></CharacterSelect>
+        <CharacterRow :character="character"></CharacterRow>
       </div>
       <div class="col-3"></div>
     </div>
@@ -79,7 +79,7 @@ import {marvelStoriesService} from "@/services/MarvelStoriesService";
 import Story from "@/models/marvel/story/Story";
 import CharacterModel from "@/models/marvel/character/Character";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
-import CharacterSelect from "@/components/CharacterSelect.vue";
+import CharacterRow from "@/components/CharacterRow.vue";
 
 library.add(faUserSecret)
 library.add(faSearch)
@@ -87,7 +87,7 @@ library.add(faSpinner)
 
 @Options({
   components: {
-    CharacterSelect
+    CharacterRow
   }
 })
 export default class Character extends Vue {

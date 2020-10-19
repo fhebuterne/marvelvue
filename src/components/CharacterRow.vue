@@ -3,12 +3,12 @@
       <div class="card mb-3" style="width: 100%;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img v-bind:src="character.thumbnail" class="card-img" v-bind:alt="character.id" v-if="character.thumbnail">
+            <img v-bind:src="character.thumbnail" class="card-img" v-bind:alt="character.id" v-if="character">
           </div>
           <div class="col">
             <div class="card-body">
-              <h5 class="card-title">{{ character.name }}</h5>
-              <p class="card-text" v-html="character.description"></p>
+              <h5 class="card-title">{{ character?.name }}</h5>
+              <p class="card-text" v-html="character?.description"></p>
             </div>
             <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le
               {{ formattedDate }}</small></div>
@@ -31,13 +31,13 @@ library.add(faSearch)
 @Options({
   components: {}
 })
-export default class CharacterSelect extends Vue {
+export default class CharacterRow extends Vue {
 
   @Prop()
   character: Character = new Character()
 
   get formattedDate() {
-    if (!this.character.modified) {
+    if (!this.character || !this.character.modified) {
       return "..."
     }
     return new Date(this.character.modified).toLocaleString()

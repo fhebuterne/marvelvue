@@ -12,8 +12,8 @@ export default class CharacterDataContainer extends AbstractDataContainer<Charac
             limit: this.number(20),
             total: this.number(0),
             count: this.number(0),
-            results: this.belongsToMany(Character, CharacterResults, 'id', 'characterId')
+            results: this.belongsToMany(Character, CharacterResults, 'id', 'characterId'),
+            marvelSearchParams: this.attr(null)
         }
     }
-
 }
