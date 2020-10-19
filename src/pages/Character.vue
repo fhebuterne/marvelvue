@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col">
-        <CharacterRow :character="character"></CharacterRow>
+        <CharacterRow v-if="character" :character="character"></CharacterRow>
       </div>
       <div class="col-3"></div>
     </div>
@@ -12,24 +12,52 @@
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Comics
+            Les comics lié au personnage <b>{{character?.name}}</b>
           </div>
           <div class="card-body">
-            <p class="card-text">
-              {{ comics }}
-            </p>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Nombre de page</th>
+                <th scope="col">Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="comic of comics" :key="comic.id">
+                <th scope="row">{{ comic.id }}</th>
+                <td>{{ comic.title }}</td>
+                <td>{{ comic.pageCount }}</td>
+                <td style="width:50%">{{ comic.limitedDescription }}</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Events
+            Les évènements lié au personnage <b>{{character?.name}}</b>
           </div>
           <div class="card-body">
-            <p class="card-text">
-              {{ events }}
-            </p>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="event of events" :key="event.id">
+                <th scope="row">{{ event.id }}</th>
+                <td>{{ event.title }}</td>
+                <td style="width:60%">{{ event.limitedDescription }}</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -39,12 +67,25 @@
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Series
+            Les séries lié au personnage <b>{{character?.name}}</b>
           </div>
           <div class="card-body">
-            <p class="card-text">
-              {{ series }}
-            </p>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="serie of series" :key="serie.id">
+                <th scope="row">{{ serie.id }}</th>
+                <td>{{ serie.title }}</td>
+                <td style="width:60%">{{ serie.limitedDescription }}</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -55,9 +96,22 @@
             Stories
           </div>
           <div class="card-body">
-            <p class="card-text">
-              {{ stories }}
-            </p>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="story of stories" :key="story.id">
+                <th scope="row">{{ story.id }}</th>
+                <td>{{ story.title }}</td>
+                <td style="width:60%">{{ story.limitedDescription }}</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

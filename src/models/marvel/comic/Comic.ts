@@ -1,8 +1,7 @@
-import {Model} from "@vuex-orm/core";
 import Url from "@/models/marvel/Url";
-import PaginatedEntity from "@/models/base/PaginatedEntity";
+import AbstractEntity from "@/models/marvel/base/AbstractEntity";
 
-export default class Comic extends Model implements PaginatedEntity {
+export default class Comic extends AbstractEntity<Comic> {
     static entity = 'comic'
 
     static fields() {
@@ -23,13 +22,10 @@ export default class Comic extends Model implements PaginatedEntity {
         }
     }
 
-    id?: number;
     digitalId?: number;
     title?: string;
     issueNumber?: number;
     variantDescription?: string;
-    description?: string;
-    modified?: Date;
     isbn?: string;
     upc?: string;
     diamondCode?: string;

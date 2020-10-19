@@ -1,8 +1,7 @@
-import {Model} from "@vuex-orm/core";
 import Url from "@/models/marvel/Url";
-import PaginatedEntity from "@/models/base/PaginatedEntity";
+import AbstractEntity from "@/models/marvel/base/AbstractEntity";
 
-export default class Character extends Model implements PaginatedEntity {
+export default class Character extends AbstractEntity<Character> {
     static entity = 'character'
 
     static fields () {
@@ -21,10 +20,7 @@ export default class Character extends Model implements PaginatedEntity {
         }
     }
 
-    id?: number;
     name?: string;
-    description?: string;
-    modified?: Date;
     resourceURI?: string;
     urls?: Url[];
     thumbnail?: string;

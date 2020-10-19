@@ -1,8 +1,7 @@
-import {Model} from "@vuex-orm/core";
 import Url from "@/models/marvel/Url";
-import PaginatedEntity from "@/models/base/PaginatedEntity";
+import AbstractEntity from "@/models/marvel/base/AbstractEntity";
 
-export default class Event extends Model implements PaginatedEntity {
+export default class Event extends AbstractEntity<Event> {
     static entity = 'event'
 
     static fields() {
@@ -16,10 +15,7 @@ export default class Event extends Model implements PaginatedEntity {
         }
     }
 
-    id?: number;
     title?: string;
-    description?: string;
-    modified?: Date;
     resourceURI?: string;
     urls?: Url[];
 
