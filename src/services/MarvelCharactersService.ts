@@ -20,7 +20,6 @@ class MarvelCharactersService {
         if (marvelSearchParams) {
             response.data.data.marvelSearchParams = marvelSearchParams;
         }
-        console.log(response)
         return response.data.data
     }
 

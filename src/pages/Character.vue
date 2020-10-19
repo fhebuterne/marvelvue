@@ -10,36 +10,19 @@
 
     <div class="row mb-4">
       <div class="col-6">
-        <div class="card">
-          <div class="card-header">
-            Les comics lié au personnage <b>{{character?.name}}</b>
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Titre</th>
-                <th scope="col">Nombre de page</th>
-                <th scope="col">Description</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="comic of comics" :key="comic.id">
-                <th scope="row">{{ comic.id }}</th>
-                <td>{{ comic.title }}</td>
-                <td>{{ comic.pageCount }}</td>
-                <td style="width:50%">{{ comic.limitedDescription }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <CardToggle>
+          <template v-slot:header>
+            Les comics liés au personnage <b>{{ character?.name }}</b>
+          </template>
+          <template v-slot:body>
+            <ComicsTable :comics="comics"></ComicsTable>
+          </template>
+        </CardToggle>
       </div>
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Les évènements lié au personnage <b>{{character?.name}}</b>
+            Les évènements liés au personnage <b>{{ character?.name }}</b>
           </div>
           <div class="card-body">
             <table class="table table-hover">
@@ -67,7 +50,7 @@
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Les séries lié au personnage <b>{{character?.name}}</b>
+            Les séries liées au personnage <b>{{ character?.name }}</b>
           </div>
           <div class="card-body">
             <table class="table table-hover">
@@ -93,7 +76,7 @@
       <div class="col-6">
         <div class="card">
           <div class="card-header">
-            Les histoires lié au personnage <b>{{character?.name}}</b>
+            Les histoires liées au personnage <b>{{ character?.name }}</b>
           </div>
           <div class="card-body">
             <table class="table table-hover">
@@ -122,7 +105,7 @@
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faSearch, faSpinner, faUserSecret} from "@fortawesome/free-solid-svg-icons";
+import {faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
 import {marvelComicsService} from "@/services/MarvelComicsService";
 import Comic from "@/models/marvel/comic/Comic";
 import {marvelEventsService} from "@/services/MarvelEventsService";
@@ -134,17 +117,22 @@ import Story from "@/models/marvel/story/Story";
 import CharacterModel from "@/models/marvel/character/Character";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import CharacterRow from "@/components/CharacterRow.vue";
+import ComicsTable from "@/components/ComicsTable.vue";
+import CardToggle from "@/components/CardToggle.vue";
 
-library.add(faUserSecret)
-library.add(faSearch)
-library.add(faSpinner)
+library.add(faAngleDown)
+library.add(faAngleUp)
 
 @Options({
   components: {
-    CharacterRow
+    CharacterRow,
+    ComicsTable,
+    CardToggle
   }
 })
 export default class Character extends Vue {
+
+  comicsOpened = true;
 
   mounted() {
     const characterId = this.$route.params.id.toString();
@@ -153,6 +141,10 @@ export default class Character extends Vue {
     marvelEventsService.getEventsByCharacter(characterId);
     marvelSeriesService.getSeriesByCharacter(characterId);
     marvelStoriesService.getStoriesByCharacter(characterId);
+  }
+
+  toggleComics() {
+    this.comicsOpened = !this.comicsOpened;
   }
 
   get character() {
@@ -177,3 +169,14 @@ export default class Character extends Vue {
 
 }
 </script>
+
+<style lang="scss">
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  opacity: 0;
+}
+</style>

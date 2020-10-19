@@ -8,3 +8,8 @@ body, #app {
 .container-fluid {
   padding-top: 15px;
 }
+
+.table th, .table td {
+  padding: 0.25rem;
+  vertical-align: middle;
+}
