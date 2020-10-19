@@ -44,7 +44,9 @@ export default class Search extends Vue {
 
   created() {
     this.paginatedResults = CharacterDataContainer.query().with("results").limit(1).first() as PaginatedResults<PaginatedEntity>;
-    this.results = this.paginatedResults.results;
+    if (this.paginatedResults.results) {
+      this.results = this.paginatedResults.results;
+    }
 
     if (!this.paginatedResults || this.paginatedResults.results?.length === 0) {
       this.$router.push("/")
@@ -68,6 +70,7 @@ export default class Search extends Vue {
         const paginatedResults = CharacterDataContainer.query().with("results").limit(1).first() as PaginatedResults<PaginatedEntity>;
         if (this.paginatedResults) {
           this.paginatedResults.results = paginatedResults.results;
+          this.paginatedResults.offset = paginatedResults.offset;
           this.results = paginatedResults.results;
         }
       });

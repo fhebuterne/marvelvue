@@ -73,7 +73,9 @@ export default class Home extends Vue {
   @Watch('characterName')
   getSuggestions(newText: string, oldText: string) {
     const marvelSearchParams = new MarvelSearchParams();
-    marvelSearchParams.nameStartsWith = newText;
+    if (newText != "") {
+      marvelSearchParams.nameStartsWith = newText;
+    }
 
     this.isLoading = true;
     marvelCharactersService.getCharacters(marvelSearchParams).finally(() => {

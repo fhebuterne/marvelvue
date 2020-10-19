@@ -12,7 +12,9 @@ export class SearchParameters {
     static objToParams(obj: object) {
         let concatenation = "";
         for (const [key, value] of Object.entries(obj)) {
-            concatenation += key + "=" + value + "&"
+            if (value != null && value != "") {
+                concatenation += key + "=" + value + "&"
+            }
         }
         return concatenation;
     }

@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import Home from "@/pages/Home.vue";
+import NotFound from "@/pages/NotFound.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/character/:id',
     name: 'Character',
     component: () => import('../pages/Character.vue')
+  },
+  {
+    path: '/:allPath(.*)*',
+    name: 'NotFound',
+    component: NotFound
   }
 ]
 
