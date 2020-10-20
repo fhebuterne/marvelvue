@@ -8,10 +8,10 @@
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">{{ character?.name }}</h5>
-              <p class="card-text" v-html="character?.description"></p>
+              <p class="card-text" v-html="character?.limitedDescription"></p>
             </div>
             <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le
-              {{ formattedDate }}</small></div>
+              {{ character?.formattedDate }}</small></div>
           </div>
         </div>
       </div>
@@ -21,12 +21,7 @@
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
 import {Prop} from "vue-property-decorator";
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faSearch, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 import Character from "@/models/marvel/character/Character";
-
-library.add(faUserSecret)
-library.add(faSearch)
 
 @Options({
   components: {}
@@ -36,12 +31,13 @@ export default class CharacterRow extends Vue {
   @Prop()
   character: Character = new Character()
 
-  get formattedDate() {
-    if (!this.character || !this.character.modified) {
-      return "..."
-    }
-    return new Date(this.character.modified).toLocaleString()
-  }
-
 }
 </script>
+
+<style lang="scss">
+  .card-footer {
+    bottom: 0;
+    position: absolute;
+    width: inherit;
+  }
+</style>

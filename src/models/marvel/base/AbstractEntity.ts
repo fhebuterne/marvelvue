@@ -12,4 +12,11 @@ export default abstract class AbstractEntity<T> extends Model implements Paginat
         }
         return this.description?.substring(0, 100) + "...";
     }
+
+    get formattedDate() {
+        if (!this.modified) {
+            return "..."
+        }
+        return new Date(this.modified).toLocaleString()
+    }
 }

@@ -18,7 +18,8 @@ export default class Comic extends AbstractEntity<Comic> {
             diamondCode: this.string(''),
             ean: this.string(''),
             issn: this.string(''),
-            pageCount: this.number(0)
+            pageCount: this.number(0),
+            thumbnail: this.string('')
         }
     }
 
@@ -35,5 +36,6 @@ export default class Comic extends AbstractEntity<Comic> {
     //textObjects?: string;
     resourceURI?: string;
     urls?: Url[];
+    thumbnail?: string;
 
 }

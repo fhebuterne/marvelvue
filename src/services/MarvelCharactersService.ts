@@ -7,7 +7,6 @@ import CharacterResults from "@/models/marvel/character/CharacterResults";
 class MarvelCharactersService {
 
     private readonly publicKey: string = process.env.VUE_APP_MARVEL_PUBLIC_KEY;
-    private url = `/characters`;
 
     private transformResultsCaracters(response: any, marvelSearchParams?: MarvelSearchParams) {
         response.data.data.results.forEach((result: Character, index: number) => {
@@ -33,7 +32,7 @@ class MarvelCharactersService {
     getCharacters(marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        let currentUrl = `${this.url}?apikey=${this.publicKey}`
+        let currentUrl = `/characters?apikey=${this.publicKey}`
         if (marvelSearchParams) {
             currentUrl += "&" + SearchParameters.objToParams(marvelSearchParams)
         }
@@ -48,10 +47,21 @@ class MarvelCharactersService {
     getCharacter(characterId: string) {
         this.resetVuex();
 
-        const currentUrl = `${this.url}/${characterId}?apikey=${this.publicKey}`
+        const currentUrl = `/characters/${characterId}?apikey=${this.publicKey}`
         return CharacterDataContainer.api().get(`${currentUrl}`, {
             dataTransformer: (response) => {
                 return this.transformResultsCaracters(response);
+            }
+        });
+    }
+
+    getCharactersByComic(comicId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/comics/${comicId}/characters?apikey=${this.publicKey}`
+        return CharacterDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                return response.data.data;
             }
         });
     }

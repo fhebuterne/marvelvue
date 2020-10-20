@@ -9,7 +9,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="event of events" :key="event.id">
+      <tr v-for="event of events" :key="event.id" @click="redirect(event.id)">
         <th scope="row">{{ event.id }}</th>
         <td>{{ event.title }}</td>
         <td style="width:60%">{{ event.limitedDescription }}</td>
@@ -30,7 +30,12 @@ import Event from "@/models/marvel/event/Event"
 export default class EventsTable extends Vue {
 
   @Prop()
-  events: Event[] = []
+  events: Event[] = [];
+
+  redirect(id: number) {
+    this.$router.push(`/event/${id}`);
+  }
+
 
 }
 </script>

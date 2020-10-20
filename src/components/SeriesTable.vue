@@ -9,7 +9,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="serie of series" :key="serie.id">
+      <tr v-for="serie of series" :key="serie.id" @click="redirect(serie.id)">
         <th scope="row">{{ serie.id }}</th>
         <td>{{ serie.title }}</td>
         <td style="width:60%">{{ serie.limitedDescription }}</td>
@@ -30,7 +30,11 @@ import Serie from "@/models/marvel/serie/Serie";
 export default class SeriesTable extends Vue {
 
   @Prop()
-  series: Serie[] = []
+  series: Serie[] = [];
+
+  redirect(id: number) {
+    this.$router.push(`/serie/${id}`);
+  }
 
 }
 </script>

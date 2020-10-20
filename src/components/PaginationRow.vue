@@ -89,7 +89,8 @@ export default class PaginationRow extends Vue {
   @Watch("paginatedResults", {immediate: true, deep: true})
   checkPagination(paginatedResults: PaginatedResults<PaginatedEntity>) {
     if (this.paginatedResults.offset) {
-      set(this.paginatedResults, this.paginatedResults.offset, paginatedResults.offset)
+      set(this.paginatedResults, this.paginatedResults.currentPage, paginatedResults.currentPage);
+      set(this.paginatedResults, this.paginatedResults.offset, paginatedResults.offset);
     }
   }
 

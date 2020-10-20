@@ -10,7 +10,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="comic of comics" :key="comic.id">
+      <tr v-for="comic of comics" :key="comic.id" @click="redirect(comic.id)">
         <th scope="row">{{ comic.id }}</th>
         <td>{{ comic.title }}</td>
         <td>{{ comic.pageCount }}</td>
@@ -32,7 +32,17 @@ import Comic from "@/models/marvel/comic/Comic"
 export default class ComicsTable extends Vue {
 
   @Prop()
-  comics: Comic[] = []
+  comics: Comic[] = [];
+
+  redirect(id: number) {
+    this.$router.push(`/comic/${id}`);
+  }
 
 }
 </script>
+
+<style lang="scss">
+  tr {
+    cursor: pointer;
+  }
+</style>

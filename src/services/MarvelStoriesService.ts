@@ -5,7 +5,6 @@ import StoryDataContainer from "@/models/marvel/story/StoryDataContainer";
 class MarvelStoriesService {
 
     private readonly publicKey: string = process.env.VUE_APP_MARVEL_PUBLIC_KEY;
-    private url = `/characters`;
 
     private resetVuex(): void {
         Story.deleteAll();
@@ -16,7 +15,18 @@ class MarvelStoriesService {
     getStoriesByCharacter(characterId: string) {
         this.resetVuex();
 
-        const currentUrl = `${this.url}/${characterId}/stories?apikey=${this.publicKey}`
+        const currentUrl = `/characters/${characterId}/stories?apikey=${this.publicKey}`
+        return StoryDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                return response.data.data;
+            }
+        });
+    }
+
+    getStoriesByComic(comicId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/comics/${comicId}/stories?apikey=${this.publicKey}`
         return StoryDataContainer.api().get(`${currentUrl}`, {
             dataTransformer: (response) => {
                 return response.data.data;
