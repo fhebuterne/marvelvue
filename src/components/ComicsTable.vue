@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover" v-if="comics && comics.length > 0">
       <thead>
       <tr>
         <th scope="col">ID</th>
@@ -18,7 +18,10 @@
       </tr>
       </tbody>
     </table>
+    <div class="alert alert-primary w-100 text-center" role="alert" v-if="comics.length === 0">
+      Aucun résultat trouvé
     </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -42,7 +45,7 @@ export default class ComicsTable extends Vue {
 </script>
 
 <style lang="scss">
-  tr {
-    cursor: pointer;
-  }
+tr {
+  cursor: pointer;
+}
 </style>
