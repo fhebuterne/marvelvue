@@ -21,6 +21,11 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faAngleUp)
+library.add(faAngleDown)
 
 @Options({
   components: {}
@@ -35,3 +40,9 @@ export default class CardToggle extends Vue {
 
 }
 </script>
+
+<style lang="scss">
+  .card-header {
+    cursor: pointer;
+  }
+</style>

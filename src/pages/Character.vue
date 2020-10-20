@@ -20,83 +20,38 @@
         </CardToggle>
       </div>
       <div class="col-6">
-        <div class="card">
-          <div class="card-header">
+        <CardToggle>
+          <template v-slot:header>
             Les évènements liés au personnage <b>{{ character?.name }}</b>
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Titre</th>
-                <th scope="col">Description</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="event of events" :key="event.id">
-                <th scope="row">{{ event.id }}</th>
-                <td>{{ event.title }}</td>
-                <td style="width:60%">{{ event.limitedDescription }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+          </template>
+          <template v-slot:body>
+            <EventsTable :events="events"></EventsTable>
+          </template>
+        </CardToggle>
       </div>
     </div>
 
     <div class="row">
       <div class="col-6">
-        <div class="card">
-          <div class="card-header">
+        <CardToggle>
+          <template v-slot:header>
             Les séries liées au personnage <b>{{ character?.name }}</b>
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Titre</th>
-                <th scope="col">Description</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="serie of series" :key="serie.id">
-                <th scope="row">{{ serie.id }}</th>
-                <td>{{ serie.title }}</td>
-                <td style="width:60%">{{ serie.limitedDescription }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+          </template>
+          <template v-slot:body>
+            <SeriesTable :series="series"></SeriesTable>
+          </template>
+        </CardToggle>
       </div>
 
       <div class="col-6">
-        <div class="card">
-          <div class="card-header">
+        <CardToggle>
+          <template v-slot:header>
             Les histoires liées au personnage <b>{{ character?.name }}</b>
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Titre</th>
-                <th scope="col">Description</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="story of stories" :key="story.id">
-                <th scope="row">{{ story.id }}</th>
-                <td>{{ story.title }}</td>
-                <td style="width:60%">{{ story.limitedDescription }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+          </template>
+          <template v-slot:body>
+            <StoriesTable :stories="stories"></StoriesTable>
+          </template>
+        </CardToggle>
       </div>
     </div>
   </div>
@@ -104,8 +59,6 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
 import {marvelComicsService} from "@/services/MarvelComicsService";
 import Comic from "@/models/marvel/comic/Comic";
 import {marvelEventsService} from "@/services/MarvelEventsService";
@@ -119,20 +72,21 @@ import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import CharacterRow from "@/components/CharacterRow.vue";
 import ComicsTable from "@/components/ComicsTable.vue";
 import CardToggle from "@/components/CardToggle.vue";
-
-library.add(faAngleDown)
-library.add(faAngleUp)
+import EventsTable from "@/components/EventsTable.vue";
+import SeriesTable from "@/components/SeriesTable.vue";
+import StoriesTable from "@/components/StoriesTable.vue";
 
 @Options({
   components: {
     CharacterRow,
+    CardToggle,
     ComicsTable,
-    CardToggle
+    EventsTable,
+    SeriesTable,
+    StoriesTable
   }
 })
 export default class Character extends Vue {
-
-  comicsOpened = true;
 
   mounted() {
     const characterId = this.$route.params.id.toString();
@@ -141,10 +95,6 @@ export default class Character extends Vue {
     marvelEventsService.getEventsByCharacter(characterId);
     marvelSeriesService.getSeriesByCharacter(characterId);
     marvelStoriesService.getStoriesByCharacter(characterId);
-  }
-
-  toggleComics() {
-    this.comicsOpened = !this.comicsOpened;
   }
 
   get character() {
