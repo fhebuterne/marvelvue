@@ -1,6 +1,7 @@
 import Story from "@/models/marvel/story/Story";
 import StoryResults from "@/models/marvel/story/StoryResults";
 import StoryDataContainer from "@/models/marvel/story/StoryDataContainer";
+import Character from "@/models/marvel/character/Character";
 
 class MarvelStoriesService {
 
@@ -10,6 +11,23 @@ class MarvelStoriesService {
         Story.deleteAll();
         StoryResults.deleteAll();
         StoryDataContainer.deleteAll();
+    }
+
+    getStory(storyId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/stories/${storyId}?apikey=${this.publicKey}`
+        return StoryDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                response.data.data.results.forEach((result: Character, index: number) => {
+                    if (response.data.data.results[index].thumbnail) {
+                        response.data.data.results[index].thumbnail = response.data.data.results[index].thumbnail.path + "." + response.data.data.results[index].thumbnail.extension;
+                    }
+                });
+
+                return response.data.data;
+            }
+        });
     }
 
     getStoriesByCharacter(characterId: string) {

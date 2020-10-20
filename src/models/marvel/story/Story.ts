@@ -17,5 +17,6 @@ export default class Story extends AbstractEntity<Story> {
     title?: string;
     resourceURI?: string;
     type?: string;
+    thumbnail?: string;
 
 }

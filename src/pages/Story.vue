@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col">
-        <h2>Comic</h2>
-        <ComicRow v-if="comic" :comic="comic"></ComicRow>
+        <h2>Histoire</h2>
+        <StoryRow v-if="story" :story="story"></StoryRow>
       </div>
       <div class="col-3"></div>
     </div>
@@ -13,7 +13,7 @@
       <div class="col-6">
         <CardToggle>
           <template v-slot:header>
-            Les personnages liés au comic <b>{{ comic?.name }}</b>
+            Les personnages liés à l'histoire <b>{{ story?.name }}</b>
           </template>
           <template v-slot:body>
             <CharactersTable :characters="characters"></CharactersTable>
@@ -23,7 +23,7 @@
       <div class="col-6">
         <CardToggle>
           <template v-slot:header>
-            Les évènements liés au comic <b>{{ comic?.name }}</b>
+            Les évènements liés à l'histoire <b>{{ story?.name }}</b>
           </template>
           <template v-slot:body>
             <EventsTable :events="events"></EventsTable>
@@ -34,16 +34,23 @@
 
     <div class="row">
       <div class="col-6">
-
+        <CardToggle>
+          <template v-slot:header>
+            Les séries liées à l'histoire <b>{{ story?.name }}</b>
+          </template>
+          <template v-slot:body>
+            <SeriesTable :series="series"></SeriesTable>
+          </template>
+        </CardToggle>
       </div>
 
       <div class="col-6">
         <CardToggle>
           <template v-slot:header>
-            Les histoires liées au comic <b>{{ comic?.name }}</b>
+            Les comics liés à l'histoire <b>{{ story?.name }}</b>
           </template>
           <template v-slot:body>
-            <StoriesTable :stories="stories"></StoriesTable>
+            <ComicsTable :comics="comics"></ComicsTable>
           </template>
         </CardToggle>
       </div>
@@ -53,47 +60,50 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {marvelComicsService} from "@/services/MarvelComicsService";
 import Event from "@/models/marvel/event/Event";
-import Story from "@/models/marvel/story/Story";
 import CardToggle from "@/components/CardToggle.vue";
 import EventsTable from "@/components/EventsTable.vue";
 import SeriesTable from "@/components/SeriesTable.vue";
-import StoriesTable from "@/components/StoriesTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
-import ComicRow from "@/components/entityRow/ComicRow.vue";
-import ComicModel from "@/models/marvel/comic/Comic";
+import StoryModel from "@/models/marvel/story/Story";
 import CharactersTable from "@/components/CharactersTable.vue";
 import Character from "@/models/marvel/character/Character";
-import {marvelCharactersService} from "@/services/MarvelCharactersService";
-import {marvelEventsService} from "@/services/MarvelEventsService";
+import StoryRow from "@/components/entityRow/StoryRow.vue";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
+import {marvelCharactersService} from "@/services/MarvelCharactersService";
+import {marvelComicsService} from "@/services/MarvelComicsService";
+import {marvelSeriesService} from "@/services/MarvelSeriesService";
+import {marvelEventsService} from "@/services/MarvelEventsService";
+import Serie from "@/models/marvel/serie/Serie";
+import Comic from "@/models/marvel/comic/Comic";
+import ComicsTable from "@/components/ComicsTable.vue";
 
 library.add(faSpinner)
 
 @Options({
   components: {
-    ComicRow,
+    StoryRow,
     CardToggle,
     EventsTable,
     SeriesTable,
-    StoriesTable,
-    CharactersTable
+    CharactersTable,
+    ComicsTable
   }
 })
-export default class Comic extends Vue {
+export default class Story extends Vue {
 
   mounted() {
-    const comicId = this.$route.params.id.toString();
-    marvelComicsService.getComic(comicId);
-    marvelCharactersService.getCharactersByComic(comicId);
-    marvelEventsService.getEventsByComic(comicId);
-    marvelStoriesService.getStoriesByComic(comicId);
+    const storyId = this.$route.params.id.toString();
+    marvelStoriesService.getStory(storyId);
+    marvelCharactersService.getCharactersByStory(storyId);
+    marvelComicsService.getComicsByStory(storyId);
+    marvelSeriesService.getSeriesByStory(storyId);
+    marvelEventsService.getEventsByStory(storyId);
   }
 
-  get comic() {
-    return ComicModel.find(this.$route.params.id.toString());
+  get story() {
+    return StoryModel.find(this.$route.params.id.toString());
   }
 
   get characters() {
@@ -104,8 +114,12 @@ export default class Comic extends Vue {
     return Event.all();
   }
 
-  get stories() {
-    return Story.all();
+  get series() {
+    return Serie.all();
+  }
+
+  get comics() {
+    return Comic.all();
   }
 
 }
