@@ -95,7 +95,11 @@ export default class Story extends Vue {
 
   mounted() {
     const storyId = this.$route.params.id.toString();
-    marvelStoriesService.getStory(storyId);
+    marvelStoriesService.getStory(storyId).catch(error => {
+      if (error.response.status == 404) {
+        this.$router.push("/notfound");
+      }
+    });
     marvelCharactersService.getCharactersByStory(storyId);
     marvelComicsService.getComicsByStory(storyId);
     marvelSeriesService.getSeriesByStory(storyId);

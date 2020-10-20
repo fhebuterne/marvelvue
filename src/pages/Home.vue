@@ -3,7 +3,7 @@
     <div class="col"></div>
     <div class="col text-center">
       <img alt="Marvel Logo" src="../assets/images/marvel-logo.png" class="w-50 mt-4 rounded">
-      <div class="input-group mb-2 mt-3">
+      <div class="input-group mb-2 mt-3 ">
         <div class="input-group-prepend">
                     <span class="input-group-text before" id="basic-addon1">
                         <font-awesome-icon :icon="['fas', 'search']"/>

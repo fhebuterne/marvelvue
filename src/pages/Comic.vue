@@ -86,7 +86,11 @@ export default class Comic extends Vue {
 
   mounted() {
     const comicId = this.$route.params.id.toString();
-    marvelComicsService.getComic(comicId);
+    marvelComicsService.getComic(comicId).catch(error => {
+      if (error.response.status == 404) {
+        this.$router.push("/notfound");
+      }
+    });
     marvelCharactersService.getCharactersByComic(comicId);
     marvelEventsService.getEventsByComic(comicId);
     marvelStoriesService.getStoriesByComic(comicId);

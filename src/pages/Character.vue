@@ -95,7 +95,11 @@ export default class Character extends Vue {
 
   mounted() {
     const characterId = this.$route.params.id.toString();
-    marvelCharactersService.getCharacter(characterId);
+    marvelCharactersService.getCharacter(characterId).catch(error => {
+      if (error.response.status == 404) {
+        this.$router.push("/notfound");
+      }
+    });
     marvelComicsService.getComicsByCharacter(characterId);
     marvelEventsService.getEventsByCharacter(characterId);
     marvelSeriesService.getSeriesByCharacter(characterId);
