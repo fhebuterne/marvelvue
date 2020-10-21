@@ -1,5 +1,5 @@
 <template>
-  <div class="row d-flex align-items-center">
+  <div class="row d-flex align-items-center text-white">
     <div class="col-sm">
       Résultats par page : {{ paginatedResults?.limit }}
     </div>
@@ -88,7 +88,7 @@ export default class PaginationRow extends Vue {
 
   @Watch("paginatedResults", {immediate: true, deep: true})
   checkPagination(paginatedResults: PaginatedResults<PaginatedEntity>) {
-    if (this.paginatedResults.offset) {
+    if (this.paginatedResults && this.paginatedResults.offset) {
       set(this.paginatedResults, this.paginatedResults.currentPage, paginatedResults.currentPage);
       set(this.paginatedResults, this.paginatedResults.offset, paginatedResults.offset);
     }

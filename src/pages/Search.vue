@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <h1>Résultat(s)</h1>
+        <h1 class="text-white">Résultat(s)</h1>
         <PaginationRow v-model:paginatedResults="paginatedResults"
                        @updatepaginationevent="updatedPagination($event)"></PaginationRow>
         <br/>
@@ -44,12 +44,14 @@ export default class Search extends Vue {
 
   created() {
     this.paginatedResults = CharacterDataContainer.query().with("results").limit(1).first() as PaginatedResults<PaginatedEntity>;
-    if (this.paginatedResults.results) {
-      this.results = this.paginatedResults.results;
+
+    if (!this.paginatedResults) {
+      this.$router.push("/");
+      return;
     }
 
-    if (!this.paginatedResults || this.paginatedResults.results?.length === 0) {
-      this.$router.push("/")
+    if (this.paginatedResults.results) {
+      this.results = this.paginatedResults.results;
     }
   }
 
