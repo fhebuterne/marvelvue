@@ -50,7 +50,7 @@
             Les comics liés à la série <b>{{ serie?.name }}</b>
           </template>
           <template v-slot:body>
-            <ComicsTable :comics="comics"></ComicsTable>
+            <ComicsPaginated :id="serieId" :filterBy="'SERIE'"></ComicsPaginated>
           </template>
         </CardToggle>
       </div>
@@ -71,14 +71,12 @@ import CharactersTable from "@/components/entityTable/CharactersTable.vue";
 import Character from "@/models/marvel/character/Character";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
-import {marvelComicsService} from "@/services/MarvelComicsService";
 import {marvelSeriesService} from "@/services/MarvelSeriesService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
-import Comic from "@/models/marvel/comic/Comic";
-import ComicsTable from "@/components/entityTable/ComicsTable.vue";
 import SerieRow from "@/components/entityRow/SerieRow.vue";
 import SerieModel from "@/models/marvel/serie/Serie";
 import StoriesTable from "@/components/entityTable/StoriesTable.vue";
+import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
 
 library.add(faSpinner)
 
@@ -89,8 +87,8 @@ library.add(faSpinner)
     EventsTable,
     SeriesTable,
     CharactersTable,
-    ComicsTable,
-    StoriesTable
+    StoriesTable,
+    ComicsPaginated
   }
 })
 export default class Serie extends Vue {
@@ -103,13 +101,16 @@ export default class Serie extends Vue {
       }
     });
     marvelCharactersService.getCharactersBySerie(serieId);
-    marvelComicsService.getComicsBySerie(serieId);
     marvelEventsService.getEventsBySerie(serieId);
     marvelStoriesService.getStoriesBySerie(serieId);
   }
 
   get serie() {
     return SerieModel.find(this.$route.params.id.toString());
+  }
+
+  get serieId() {
+    return this.$route.params.id.toString();
   }
 
   get characters() {
@@ -122,10 +123,6 @@ export default class Serie extends Vue {
 
   get stories() {
     return Story.all();
-  }
-
-  get comics() {
-    return Comic.all();
   }
 
 }

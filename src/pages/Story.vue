@@ -50,7 +50,7 @@
             Les comics liés à l'histoire <b>{{ story?.name }}</b>
           </template>
           <template v-slot:body>
-            <ComicsTable :comics="comics"></ComicsTable>
+            <ComicsPaginated :id="storyId" :filterBy="'STORY'"></ComicsPaginated>
           </template>
         </CardToggle>
       </div>
@@ -72,12 +72,10 @@ import Character from "@/models/marvel/character/Character";
 import StoryRow from "@/components/entityRow/StoryRow.vue";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
-import {marvelComicsService} from "@/services/MarvelComicsService";
 import {marvelSeriesService} from "@/services/MarvelSeriesService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import Serie from "@/models/marvel/serie/Serie";
-import Comic from "@/models/marvel/comic/Comic";
-import ComicsTable from "@/components/entityTable/ComicsTable.vue";
+import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
 
 library.add(faSpinner)
 
@@ -88,7 +86,7 @@ library.add(faSpinner)
     EventsTable,
     SeriesTable,
     CharactersTable,
-    ComicsTable
+    ComicsPaginated
   }
 })
 export default class Story extends Vue {
@@ -101,9 +99,12 @@ export default class Story extends Vue {
       }
     });
     marvelCharactersService.getCharactersByStory(storyId);
-    marvelComicsService.getComicsByStory(storyId);
     marvelSeriesService.getSeriesByStory(storyId);
     marvelEventsService.getEventsByStory(storyId);
+  }
+
+  get storyId() {
+    return this.$route.params.id.toString();
   }
 
   get story() {
@@ -120,10 +121,6 @@ export default class Story extends Vue {
 
   get series() {
     return Serie.all();
-  }
-
-  get comics() {
-    return Comic.all();
   }
 
 }

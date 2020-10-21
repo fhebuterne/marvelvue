@@ -60,7 +60,6 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import Comic from "@/models/marvel/comic/Comic";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import Event from "@/models/marvel/event/Event";
 import {marvelSeriesService} from "@/services/MarvelSeriesService";
@@ -110,10 +109,6 @@ export default class Character extends Vue {
 
   get character() {
     return CharacterModel.find(this.$route.params.id.toString());
-  }
-
-  get comics() {
-    return Comic.all();
   }
 
   get events() {
