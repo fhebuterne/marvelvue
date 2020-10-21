@@ -62,12 +62,12 @@
 import {Options, Vue} from 'vue-class-component';
 import Event from "@/models/marvel/event/Event";
 import CardToggle from "@/components/CardToggle.vue";
-import EventsTable from "@/components/EventsTable.vue";
-import SeriesTable from "@/components/SeriesTable.vue";
+import EventsTable from "@/components/entityTable/EventsTable.vue";
+import SeriesTable from "@/components/entityTable/SeriesTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import StoryModel from "@/models/marvel/story/Story";
-import CharactersTable from "@/components/CharactersTable.vue";
+import CharactersTable from "@/components/entityTable/CharactersTable.vue";
 import Character from "@/models/marvel/character/Character";
 import StoryRow from "@/components/entityRow/StoryRow.vue";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
@@ -77,7 +77,7 @@ import {marvelSeriesService} from "@/services/MarvelSeriesService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import Serie from "@/models/marvel/serie/Serie";
 import Comic from "@/models/marvel/comic/Comic";
-import ComicsTable from "@/components/ComicsTable.vue";
+import ComicsTable from "@/components/entityTable/ComicsTable.vue";
 
 library.add(faSpinner)
 
