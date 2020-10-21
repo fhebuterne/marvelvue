@@ -43,7 +43,7 @@
             Les histoires liées au comic <b>{{ comic?.name }}</b>
           </template>
           <template v-slot:body>
-            <StoriesTable :stories="stories"></StoriesTable>
+            <StoriesPaginated :id="comicId" :filterBy="'COMIC'"></StoriesPaginated>
           </template>
         </CardToggle>
       </div>
@@ -55,11 +55,9 @@
 import {Options, Vue} from 'vue-class-component';
 import {marvelComicsService} from "@/services/MarvelComicsService";
 import Event from "@/models/marvel/event/Event";
-import Story from "@/models/marvel/story/Story";
 import CardToggle from "@/components/CardToggle.vue";
 import EventsTable from "@/components/entityTable/EventsTable.vue";
 import SeriesTable from "@/components/entityTable/SeriesTable.vue";
-import StoriesTable from "@/components/entityTable/StoriesTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import ComicRow from "@/components/entityRow/ComicRow.vue";
@@ -68,7 +66,7 @@ import CharactersTable from "@/components/entityTable/CharactersTable.vue";
 import Character from "@/models/marvel/character/Character";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
-import {marvelStoriesService} from "@/services/MarvelStoriesService";
+import StoriesPaginated from "@/components/entityPaginated/StoriesPaginated.vue";
 
 library.add(faSpinner)
 
@@ -78,7 +76,7 @@ library.add(faSpinner)
     CardToggle,
     EventsTable,
     SeriesTable,
-    StoriesTable,
+    StoriesPaginated,
     CharactersTable
   }
 })
@@ -93,11 +91,14 @@ export default class Comic extends Vue {
     });
     marvelCharactersService.getCharactersByComic(comicId);
     marvelEventsService.getEventsByComic(comicId);
-    marvelStoriesService.getStoriesByComic(comicId);
   }
 
   get comic() {
     return ComicModel.find(this.$route.params.id.toString());
+  }
+
+  get comicId() {
+    return this.$route.params.id.toString();
   }
 
   get characters() {
@@ -106,10 +107,6 @@ export default class Comic extends Vue {
 
   get events() {
     return Event.all();
-  }
-
-  get stories() {
-    return Story.all();
   }
 
 }

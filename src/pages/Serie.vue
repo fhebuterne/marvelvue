@@ -39,7 +39,7 @@
             Les histoires liées à la série <b>{{ serie?.name }}</b>
           </template>
           <template v-slot:body>
-            <StoriesTable :stories="stories"></StoriesTable>
+            <StoriesPaginated :id="serieId" :filterBy="'SERIE'"></StoriesPaginated>
           </template>
         </CardToggle>
       </div>
@@ -66,17 +66,15 @@ import EventsTable from "@/components/entityTable/EventsTable.vue";
 import SeriesTable from "@/components/entityTable/SeriesTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
-import Story from "@/models/marvel/story/Story";
 import CharactersTable from "@/components/entityTable/CharactersTable.vue";
 import Character from "@/models/marvel/character/Character";
-import {marvelStoriesService} from "@/services/MarvelStoriesService";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import {marvelSeriesService} from "@/services/MarvelSeriesService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import SerieRow from "@/components/entityRow/SerieRow.vue";
 import SerieModel from "@/models/marvel/serie/Serie";
-import StoriesTable from "@/components/entityTable/StoriesTable.vue";
 import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
+import StoriesPaginated from "@/components/entityPaginated/StoriesPaginated.vue";
 
 library.add(faSpinner)
 
@@ -87,7 +85,7 @@ library.add(faSpinner)
     EventsTable,
     SeriesTable,
     CharactersTable,
-    StoriesTable,
+    StoriesPaginated,
     ComicsPaginated
   }
 })
@@ -102,7 +100,6 @@ export default class Serie extends Vue {
     });
     marvelCharactersService.getCharactersBySerie(serieId);
     marvelEventsService.getEventsBySerie(serieId);
-    marvelStoriesService.getStoriesBySerie(serieId);
   }
 
   get serie() {
@@ -119,10 +116,6 @@ export default class Serie extends Vue {
 
   get events() {
     return Event.all();
-  }
-
-  get stories() {
-    return Story.all();
   }
 
 }
