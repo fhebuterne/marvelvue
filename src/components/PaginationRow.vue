@@ -1,5 +1,5 @@
 <template>
-  <div class="row d-flex align-items-center text-white">
+  <div class="row d-flex align-items-center" v-bind:class="textStyle">
     <div class="col-sm">
       Résultats par page : {{ paginatedResults?.limit }}
     </div>
@@ -26,10 +26,10 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {Prop, Watch} from "vue-property-decorator";
+import {Prop} from "vue-property-decorator";
 import PaginatedResults from "@/models/base/PaginatedResults";
 import PaginatedEntity from "@/models/base/PaginatedEntity";
-import set = Reflect.set;
+import PaginatedResultsImpl from "@/models/base/PaginatedResultsImpl";
 
 @Options({
   components: {}
@@ -37,14 +37,10 @@ import set = Reflect.set;
 export default class PaginationRow extends Vue {
 
   @Prop()
-  paginatedResults: PaginatedResults<PaginatedEntity> = {
-    count: 0,
-    currentPage: 1,
-    limit: 20,
-    offset: 0,
-    results: [],
-    total: 0
-  };
+  paginatedResults: PaginatedResults<PaginatedEntity> = new PaginatedResultsImpl();
+
+  @Prop()
+  textStyle = "text-dark";
 
   currentPage = 1;
 
@@ -84,14 +80,6 @@ export default class PaginationRow extends Vue {
     this.paginatedResults.currentPage = this.paginatedResults.currentPage + 1;
     this.currentPage = this.paginatedResults.currentPage;
     this.updatePagination();
-  }
-
-  @Watch("paginatedResults", {immediate: true, deep: true})
-  checkPagination(paginatedResults: PaginatedResults<PaginatedEntity>) {
-    if (this.paginatedResults && this.paginatedResults.offset) {
-      set(this.paginatedResults, this.paginatedResults.currentPage, paginatedResults.currentPage);
-      set(this.paginatedResults, this.paginatedResults.offset, paginatedResults.offset);
-    }
   }
 
   updatePagination(): void {

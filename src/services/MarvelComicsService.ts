@@ -2,6 +2,10 @@ import Comic from "@/models/marvel/comic/Comic";
 import ComicResults from "@/models/marvel/comic/ComicResults";
 import ComicDataContainer from "@/models/marvel/comic/ComicDataContainer";
 import Character from "@/models/marvel/character/Character";
+import {MarvelSearchParams} from "@/models/marvel/MarvelSearchParams";
+import {SearchParameters} from "@/models/base/SearchParameters";
+import {EntityEnum} from "@/models/marvel/base/EntityEnum";
+import {Response} from "@vuex-orm/plugin-axios";
 
 class MarvelComicsService {
 
@@ -11,6 +15,30 @@ class MarvelComicsService {
         Comic.deleteAll();
         ComicResults.deleteAll();
         ComicDataContainer.deleteAll();
+    }
+
+    getComicBy(entityEnum: EntityEnum, id: string, marvelSearchParams?: MarvelSearchParams): Promise<Response> {
+        if (entityEnum == EntityEnum.CHARACTER) {
+            return this.getComicsByCharacter(id, marvelSearchParams)
+        }
+
+        if (entityEnum == EntityEnum.SERIE) {
+            return this.getComicsBySerie(id, marvelSearchParams)
+        }
+
+        if (entityEnum == EntityEnum.STORY) {
+            return this.getComicsByStory(id, marvelSearchParams)
+        }
+
+        return this.getComicsByCharacter(id, marvelSearchParams)
+    }
+
+    private getBaseUrl(prefix: string, id: string, marvelSearchParams?: MarvelSearchParams) {
+        let currentUrl = `/${prefix}/${id}/comics?apikey=${this.publicKey}`
+        if (marvelSearchParams) {
+            currentUrl += "&" + SearchParameters.objToParams(marvelSearchParams);
+        }
+        return currentUrl;
     }
 
     getComic(comicId: string) {
@@ -29,33 +57,30 @@ class MarvelComicsService {
         });
     }
 
-    getComicsByCharacter(characterId: string) {
+    getComicsByCharacter(characterId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/characters/${characterId}/comics?apikey=${this.publicKey}`
-        return ComicDataContainer.api().get(`${currentUrl}`, {
+        return ComicDataContainer.api().get(this.getBaseUrl("characters", characterId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }
         });
     }
 
-    getComicsByStory(storyId: string) {
+    getComicsByStory(storyId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/stories/${storyId}/comics?apikey=${this.publicKey}`
-        return ComicDataContainer.api().get(`${currentUrl}`, {
+        return ComicDataContainer.api().get(this.getBaseUrl("stories", storyId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }
         });
     }
 
-    getComicsBySerie(serieId: string) {
+    getComicsBySerie(serieId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/series/${serieId}/comics?apikey=${this.publicKey}`
-        return ComicDataContainer.api().get(`${currentUrl}`, {
+        return ComicDataContainer.api().get(this.getBaseUrl("series", serieId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }

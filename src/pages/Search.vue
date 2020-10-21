@@ -5,6 +5,7 @@
       <div class="col-8">
         <h1 class="text-white">Résultat(s)</h1>
         <PaginationRow v-model:paginatedResults="paginatedResults"
+                       :textStyle="'text-white'"
                        @updatepaginationevent="updatedPagination($event)"></PaginationRow>
         <br/>
         <div v-for="character of results" :key="character">
