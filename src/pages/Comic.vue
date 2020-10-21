@@ -16,7 +16,7 @@
             Les personnages liés au comic <b>{{ comic?.name }}</b>
           </template>
           <template v-slot:body>
-            <CharactersTable :characters="characters"></CharactersTable>
+            <CharactersPaginated :id="comicId" :filterBy="'COMIC'"></CharactersPaginated>
           </template>
         </CardToggle>
       </div>
@@ -62,11 +62,9 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import ComicRow from "@/components/entityRow/ComicRow.vue";
 import ComicModel from "@/models/marvel/comic/Comic";
-import CharactersTable from "@/components/entityTable/CharactersTable.vue";
-import Character from "@/models/marvel/character/Character";
-import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import StoriesPaginated from "@/components/entityPaginated/StoriesPaginated.vue";
+import CharactersPaginated from "@/components/entityPaginated/CharactersPaginated.vue";
 
 library.add(faSpinner)
 
@@ -77,7 +75,7 @@ library.add(faSpinner)
     EventsTable,
     SeriesTable,
     StoriesPaginated,
-    CharactersTable
+    CharactersPaginated
   }
 })
 export default class Comic extends Vue {
@@ -89,7 +87,6 @@ export default class Comic extends Vue {
         this.$router.push("/notfound");
       }
     });
-    marvelCharactersService.getCharactersByComic(comicId);
     marvelEventsService.getEventsByComic(comicId);
   }
 
@@ -99,10 +96,6 @@ export default class Comic extends Vue {
 
   get comicId() {
     return this.$route.params.id.toString();
-  }
-
-  get characters() {
-    return Character.all();
   }
 
   get events() {

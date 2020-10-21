@@ -34,7 +34,7 @@ class MarvelStoriesService {
     }
 
     private getBaseUrl(prefix: string, id: string, marvelSearchParams?: MarvelSearchParams) {
-        let currentUrl = `/${prefix}/${id}/comics?apikey=${this.publicKey}`
+        let currentUrl = `/${prefix}/${id}/stories?apikey=${this.publicKey}`
         if (marvelSearchParams) {
             currentUrl += "&" + SearchParameters.objToParams(marvelSearchParams);
         }

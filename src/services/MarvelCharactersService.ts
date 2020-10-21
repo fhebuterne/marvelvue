@@ -3,6 +3,8 @@ import {MarvelSearchParams} from "@/models/marvel/MarvelSearchParams";
 import {SearchParameters} from "@/models/base/SearchParameters";
 import CharacterDataContainer from "@/models/marvel/character/CharacterDataContainer";
 import CharacterResults from "@/models/marvel/character/CharacterResults";
+import {EntityEnum} from "@/models/marvel/base/EntityEnum";
+import {Response} from "@vuex-orm/plugin-axios";
 
 class MarvelCharactersService {
 
@@ -29,6 +31,30 @@ class MarvelCharactersService {
         CharacterResults.deleteAll();
     }
 
+    getCharacterBy(entityEnum: EntityEnum, id: string, marvelSearchParams?: MarvelSearchParams): Promise<Response> {
+        if (entityEnum == EntityEnum.STORY) {
+            return this.getCharactersByStory(id, marvelSearchParams)
+        }
+
+        if (entityEnum == EntityEnum.SERIE) {
+            return this.getCharactersBySerie(id, marvelSearchParams)
+        }
+
+        if (entityEnum == EntityEnum.COMIC) {
+            return this.getCharactersByComic(id, marvelSearchParams)
+        }
+
+        return this.getCharactersByStory(id, marvelSearchParams)
+    }
+
+    private getBaseUrl(prefix: string, id: string, marvelSearchParams?: MarvelSearchParams) {
+        let currentUrl = `/${prefix}/${id}/characters?apikey=${this.publicKey}`
+        if (marvelSearchParams) {
+            currentUrl += "&" + SearchParameters.objToParams(marvelSearchParams);
+        }
+        return currentUrl;
+    }
+
     getCharacters(marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
@@ -44,7 +70,7 @@ class MarvelCharactersService {
         });
     }
 
-    getCharacter(characterId: string) {
+    getCharacter(characterId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
         const currentUrl = `/characters/${characterId}?apikey=${this.publicKey}`
@@ -55,33 +81,30 @@ class MarvelCharactersService {
         });
     }
 
-    getCharactersByComic(comicId: string) {
+    getCharactersByComic(comicId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/comics/${comicId}/characters?apikey=${this.publicKey}`
-        return CharacterDataContainer.api().get(`${currentUrl}`, {
+        return CharacterDataContainer.api().get(this.getBaseUrl("comics", comicId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }
         });
     }
 
-    getCharactersByStory(storyId: string) {
+    getCharactersByStory(storyId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/stories/${storyId}/characters?apikey=${this.publicKey}`
-        return CharacterDataContainer.api().get(`${currentUrl}`, {
+        return CharacterDataContainer.api().get(this.getBaseUrl("stories", storyId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }
         });
     }
 
-    getCharactersBySerie(serieId: string) {
+    getCharactersBySerie(serieId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/series/${serieId}/characters?apikey=${this.publicKey}`
-        return CharacterDataContainer.api().get(`${currentUrl}`, {
+        return CharacterDataContainer.api().get(this.getBaseUrl("series", serieId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }

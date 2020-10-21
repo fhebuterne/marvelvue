@@ -16,7 +16,7 @@
             Les personnages liés à l'histoire <b>{{ story?.name }}</b>
           </template>
           <template v-slot:body>
-            <CharactersTable :characters="characters"></CharactersTable>
+            <CharactersPaginated :id="storyId" :filterBy="'STORY'"></CharactersPaginated>
           </template>
         </CardToggle>
       </div>
@@ -67,14 +67,12 @@ import SeriesTable from "@/components/entityTable/SeriesTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import StoryModel from "@/models/marvel/story/Story";
-import CharactersTable from "@/components/entityTable/CharactersTable.vue";
-import Character from "@/models/marvel/character/Character";
 import StoryRow from "@/components/entityRow/StoryRow.vue";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
-import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
 import SeriesPaginated from "@/components/entityPaginated/SeriesPaginated.vue";
+import CharactersPaginated from "@/components/entityPaginated/CharactersPaginated.vue";
 
 library.add(faSpinner)
 
@@ -84,7 +82,7 @@ library.add(faSpinner)
     CardToggle,
     EventsTable,
     SeriesTable,
-    CharactersTable,
+    CharactersPaginated,
     ComicsPaginated,
     SeriesPaginated
   }
@@ -98,7 +96,6 @@ export default class Story extends Vue {
         this.$router.push("/notfound");
       }
     });
-    marvelCharactersService.getCharactersByStory(storyId);
     marvelEventsService.getEventsByStory(storyId);
   }
 
@@ -108,10 +105,6 @@ export default class Story extends Vue {
 
   get story() {
     return StoryModel.find(this.$route.params.id.toString());
-  }
-
-  get characters() {
-    return Character.all();
   }
 
   get events() {
