@@ -2,13 +2,16 @@
   <div class="row">
       <div class="card mb-3" style="width: 100%;">
         <div class="row no-gutters">
-          <div class="col-md-4">
+          <div class="col-md-4 align-self-center">
             <img v-bind:src="comic.thumbnail" class="card-img" v-bind:alt="comic.id" v-if="comic && comic.thumbnail">
           </div>
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">{{ comic?.title }}</h5>
               <p class="card-text" v-html="comic?.checkNullableDescription"></p>
+              <p class="card-text">Nombre de page : {{comic.pageCount}}</p>
+              <p class="card-text">ISBN : {{comic.isbn}}</p>
+              <p class="card-text">EAN : {{comic.ean}}</p>
             </div>
             <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le
               {{ comic?.formattedDate }}</small></div>

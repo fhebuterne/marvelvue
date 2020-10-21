@@ -2,7 +2,7 @@
   <div class="row">
       <div class="card mb-3" style="width: 100%;">
         <div class="row no-gutters">
-          <div class="col-md-4">
+          <div class="col-md-4 align-self-center">
             <img v-bind:src="story.thumbnail" class="card-img" v-bind:alt="story.id" v-if="story && story.thumbnail">
           </div>
           <div class="col">
