@@ -52,6 +52,17 @@ class MarvelStoriesService {
         });
     }
 
+    getStoriesBySerie(serieId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/series/${serieId}/stories?apikey=${this.publicKey}`
+        return StoryDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                return response.data.data;
+            }
+        });
+    }
+
 }
 
 export const marvelStoriesService = new MarvelStoriesService();

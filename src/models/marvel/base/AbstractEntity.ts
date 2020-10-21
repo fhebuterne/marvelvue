@@ -6,11 +6,15 @@ export default abstract class AbstractEntity<T> extends Model implements Paginat
     description?: string;
     modified?: Date;
 
-    get limitedDescription(): string {
-        if (this.description == null || this.description == "" || this.description == "null") {
+    get checkNullableDescription(): string {
+        if (this.description == null || this.description.trim() == "" || this.description.trim() == "null") {
             return "Aucune description disponible";
         }
-        return this.description?.substring(0, 100) + "...";
+        return this.description;
+    }
+
+    get limitedDescription(): string {
+        return this.checkNullableDescription.substring(0, 100) + "...";
     }
 
     get formattedDate() {

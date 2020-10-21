@@ -12,6 +12,23 @@ class MarvelSeriesService {
         SerieDataContainer.deleteAll();
     }
 
+    getSerie(serieId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/series/${serieId}?apikey=${this.publicKey}`
+        return SerieDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                response.data.data.results.forEach((result: Serie, index: number) => {
+                    if (response.data.data.results[index].thumbnail) {
+                        response.data.data.results[index].thumbnail = response.data.data.results[index].thumbnail.path + "." + response.data.data.results[index].thumbnail.extension;
+                    }
+                });
+
+                return response.data.data;
+            }
+        });
+    }
+
     getSeriesByCharacter(characterId: string) {
         this.resetVuex();
 

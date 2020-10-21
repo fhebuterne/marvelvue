@@ -14,7 +14,8 @@ export default class Serie extends AbstractEntity<Serie> {
             urls: this.attr(null),
             startYear: this.number(0),
             endYear: this.number(0),
-            rating: this.string('')
+            rating: this.string(''),
+            thumbnail: this.string('')
         }
     }
 
@@ -24,5 +25,6 @@ export default class Serie extends AbstractEntity<Serie> {
     startYear?: number;
     endYear?: number;
     rating?: string;
+    thumbnail?: string;
 
 }

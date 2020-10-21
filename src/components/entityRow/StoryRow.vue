@@ -8,7 +8,7 @@
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">{{ story?.title }}</h5>
-              <p class="card-text" v-html="story?.limitedDescription"></p>
+              <p class="card-text" v-html="story?.checkNullableDescription"></p>
             </div>
             <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le
               {{ story?.formattedDate }}</small></div>

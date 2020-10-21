@@ -45,6 +45,17 @@ class MarvelEventsService {
         });
     }
 
+    getEventsBySerie(serieId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/series/${serieId}/events?apikey=${this.publicKey}`
+        return EventDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                return response.data.data;
+            }
+        });
+    }
+
 }
 
 export const marvelEventsService = new MarvelEventsService();

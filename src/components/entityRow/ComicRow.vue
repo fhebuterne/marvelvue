@@ -8,7 +8,7 @@
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">{{ comic?.title }}</h5>
-              <p class="card-text" v-html="comic?.limitedDescription"></p>
+              <p class="card-text" v-html="comic?.checkNullableDescription"></p>
             </div>
             <div class="card-footer bg-transparent"><small class="text-muted">Dernière modification le
               {{ comic?.formattedDate }}</small></div>

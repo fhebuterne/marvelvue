@@ -51,6 +51,17 @@ class MarvelComicsService {
         });
     }
 
+    getComicsBySerie(serieId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/series/${serieId}/comics?apikey=${this.publicKey}`
+        return ComicDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                return response.data.data;
+            }
+        });
+    }
+
 }
 
 export const marvelComicsService = new MarvelComicsService();

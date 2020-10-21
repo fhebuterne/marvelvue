@@ -77,6 +77,17 @@ class MarvelCharactersService {
         });
     }
 
+    getCharactersBySerie(serieId: string) {
+        this.resetVuex();
+
+        const currentUrl = `/series/${serieId}/characters?apikey=${this.publicKey}`
+        return CharacterDataContainer.api().get(`${currentUrl}`, {
+            dataTransformer: (response) => {
+                return response.data.data;
+            }
+        });
+    }
+
 }
 
 export const marvelCharactersService = new MarvelCharactersService();
