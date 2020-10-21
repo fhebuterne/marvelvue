@@ -32,7 +32,7 @@
     <div class="col-auto">
       <button type="button" class="btn btn-dark" @click="this.$router.push('/search')">Rechercher</button>
       <span class="ml-2 mr-2"></span>
-      <button type="button" class="btn btn-dark">J'ai de la chance</button>
+      <button type="button" class="btn btn-dark" @click="redirectToFirstResult()">J'ai de la chance</button>
     </div>
     <div class="col"></div>
   </div>
@@ -64,6 +64,13 @@ export default class Home extends Vue {
 
   get characters() {
     return Character.all().slice(0, 10)
+  }
+
+  redirectToFirstResult() {
+    const characterFirst = Character.query().first();
+    if (characterFirst) {
+      this.$router.push(`/character/${characterFirst?.id}`);
+    }
   }
 
   checkCharacter(id: string) {
