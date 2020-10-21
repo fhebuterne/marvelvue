@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col">
-        <h2>Personnage</h2>
+        <h2 class="text-center text-white">Personnage</h2>
         <CharacterRow v-if="character" :character="character"></CharacterRow>
       </div>
       <div class="col-3"></div>
