@@ -24,6 +24,7 @@ import SeriesTable from "@/components/entityTable/SeriesTable.vue";
 import {marvelSeriesService} from "@/services/MarvelSeriesService";
 import Serie from "@/models/marvel/serie/Serie";
 import SerieDataContainer from "@/models/marvel/serie/SerieDataContainer";
+import set = Reflect.set;
 
 library.add(faSpinner);
 
@@ -57,9 +58,8 @@ export default class SeriesPaginated extends Vue {
       this.paginatedResultsComics.marvelSearchParams = new MarvelSearchParams();
     }
 
-    if (this.paginatedResultsComics.offset) {
-      this.paginatedResultsComics.marvelSearchParams.offset = this.paginatedResultsComics.offset;
-    }
+    set(this.paginatedResultsComics, "offset", this.paginatedResultsComics.offset);
+    set(this.paginatedResultsComics.marvelSearchParams, "offset", this.paginatedResultsComics.offset);
 
     this.callApiMarvel(false);
   }

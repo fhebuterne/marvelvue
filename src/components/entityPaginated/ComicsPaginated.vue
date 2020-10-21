@@ -24,6 +24,7 @@ import Comic from "@/models/marvel/comic/Comic";
 import ComicsTable from "@/components/entityTable/ComicsTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
+import set = Reflect.set;
 
 library.add(faSpinner);
 
@@ -57,9 +58,8 @@ export default class ComicsPaginated extends Vue {
       this.paginatedResultsComics.marvelSearchParams = new MarvelSearchParams();
     }
 
-    if (this.paginatedResultsComics.offset) {
-      this.paginatedResultsComics.marvelSearchParams.offset = this.paginatedResultsComics.offset;
-    }
+    set(this.paginatedResultsComics, "offset", this.paginatedResultsComics.offset);
+    set(this.paginatedResultsComics.marvelSearchParams, "offset", this.paginatedResultsComics.offset);
 
     this.callApiMarvel(false);
   }
@@ -67,6 +67,7 @@ export default class ComicsPaginated extends Vue {
   callApiMarvel(init: boolean) {
     this.loading = true;
     this.error = false;
+
     marvelComicsService.getComicBy(this.filterBy, this.id, this.paginatedResultsComics.marvelSearchParams).then(() => {
       const paginatedResults = ComicDataContainer.query().with("results").limit(1).first() as PaginatedResults<PaginatedEntity>;
       if (this.paginatedResultsComics) {

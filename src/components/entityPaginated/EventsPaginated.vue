@@ -24,6 +24,7 @@ import EventsTable from "@/components/entityTable/EventsTable.vue";
 import Event from "@/models/marvel/event/Event";
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import EventDataContainer from "@/models/marvel/event/EventDataContainer";
+import set = Reflect.set;
 
 library.add(faSpinner);
 
@@ -57,9 +58,8 @@ export default class EventsPaginated extends Vue {
       this.paginatedResultsComics.marvelSearchParams = new MarvelSearchParams();
     }
 
-    if (this.paginatedResultsComics.offset) {
-      this.paginatedResultsComics.marvelSearchParams.offset = this.paginatedResultsComics.offset;
-    }
+    set(this.paginatedResultsComics, "offset", this.paginatedResultsComics.offset);
+    set(this.paginatedResultsComics.marvelSearchParams, "offset", this.paginatedResultsComics.offset);
 
     this.callApiMarvel(false);
   }

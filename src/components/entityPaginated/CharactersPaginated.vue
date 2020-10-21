@@ -24,6 +24,7 @@ import CharactersTable from "@/components/entityTable/CharactersTable.vue";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import Character from "@/models/marvel/character/Character";
 import CharacterDataContainer from "@/models/marvel/character/CharacterDataContainer";
+import set = Reflect.set;
 
 library.add(faSpinner);
 
@@ -57,9 +58,8 @@ export default class CharactersPaginated extends Vue {
       this.paginatedResultsComics.marvelSearchParams = new MarvelSearchParams();
     }
 
-    if (this.paginatedResultsComics.offset) {
-      this.paginatedResultsComics.marvelSearchParams.offset = this.paginatedResultsComics.offset;
-    }
+    set(this.paginatedResultsComics, "offset", this.paginatedResultsComics.offset);
+    set(this.paginatedResultsComics.marvelSearchParams, "offset", this.paginatedResultsComics.offset);
 
     this.callApiMarvel(false);
   }

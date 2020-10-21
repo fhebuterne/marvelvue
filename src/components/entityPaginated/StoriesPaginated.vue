@@ -24,6 +24,7 @@ import StoriesTable from "@/components/entityTable/StoriesTable.vue";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
 import StoryDataContainer from "@/models/marvel/story/StoryDataContainer";
 import Story from "@/models/marvel/story/Story";
+import set = Reflect.set;
 
 library.add(faSpinner);
 
@@ -57,9 +58,8 @@ export default class StoriesPaginated extends Vue {
       this.paginatedResultsComics.marvelSearchParams = new MarvelSearchParams();
     }
 
-    if (this.paginatedResultsComics.offset) {
-      this.paginatedResultsComics.marvelSearchParams.offset = this.paginatedResultsComics.offset;
-    }
+    set(this.paginatedResultsComics, "offset", this.paginatedResultsComics.offset);
+    set(this.paginatedResultsComics.marvelSearchParams, "offset", this.paginatedResultsComics.offset);
 
     this.callApiMarvel(false);
   }
