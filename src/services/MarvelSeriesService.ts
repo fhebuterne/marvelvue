@@ -1,6 +1,10 @@
 import SerieDataContainer from "@/models/marvel/serie/SerieDataContainer";
 import Serie from "@/models/marvel/serie/Serie";
 import SerieResults from "@/models/marvel/serie/SerieResults";
+import {EntityEnum} from "@/models/marvel/base/EntityEnum";
+import {MarvelSearchParams} from "@/models/marvel/MarvelSearchParams";
+import {Response} from "@vuex-orm/plugin-axios";
+import {SearchParameters} from "@/models/base/SearchParameters";
 
 class MarvelSeriesService {
 
@@ -10,6 +14,26 @@ class MarvelSeriesService {
         Serie.deleteAll();
         SerieResults.deleteAll();
         SerieDataContainer.deleteAll();
+    }
+
+    getSerieBy(entityEnum: EntityEnum, id: string, marvelSearchParams?: MarvelSearchParams): Promise<Response> {
+        if (entityEnum == EntityEnum.CHARACTER) {
+            return this.getSeriesByCharacter(id, marvelSearchParams)
+        }
+
+        if (entityEnum == EntityEnum.STORY) {
+            return this.getSeriesByStory(id, marvelSearchParams)
+        }
+
+        return this.getSeriesByCharacter(id, marvelSearchParams)
+    }
+
+    private getBaseUrl(prefix: string, id: string, marvelSearchParams?: MarvelSearchParams) {
+        let currentUrl = `/${prefix}/${id}/series?apikey=${this.publicKey}`
+        if (marvelSearchParams) {
+            currentUrl += "&" + SearchParameters.objToParams(marvelSearchParams);
+        }
+        return currentUrl;
     }
 
     getSerie(serieId: string) {
@@ -29,22 +53,20 @@ class MarvelSeriesService {
         });
     }
 
-    getSeriesByCharacter(characterId: string) {
+    getSeriesByCharacter(characterId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/characters/${characterId}/series?apikey=${this.publicKey}`
-        return SerieDataContainer.api().get(`${currentUrl}`, {
+        return SerieDataContainer.api().get(this.getBaseUrl("characters", characterId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }
         });
     }
 
-    getSeriesByStory(storyId: string) {
+    getSeriesByStory(storyId: string, marvelSearchParams?: MarvelSearchParams) {
         this.resetVuex();
 
-        const currentUrl = `/stories/${storyId}/series?apikey=${this.publicKey}`
-        return SerieDataContainer.api().get(`${currentUrl}`, {
+        return SerieDataContainer.api().get(this.getBaseUrl("stories", storyId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }

@@ -1,5 +1,5 @@
 <template>
-  <ComicsTable :comics="comics" v-if="!loading && !error"></ComicsTable>
+  <SeriesTable :series="series" v-if="!loading && !error"></SeriesTable>
   <font-awesome-icon :icon="['fas', 'spinner']" :size="'4x'" spin v-if="loading"/>
   <div class="alert alert-danger" role="alert" v-if="error && !loading">
     Une erreur s'est produite lors de l'appel d'API.
@@ -16,24 +16,24 @@ import PaginatedResults from "@/models/base/PaginatedResults";
 import PaginatedEntity from "@/models/base/PaginatedEntity";
 import PaginatedResultsImpl from "@/models/base/PaginatedResultsImpl";
 import {MarvelSearchParams} from "@/models/marvel/MarvelSearchParams";
-import {marvelComicsService} from "@/services/MarvelComicsService";
-import ComicDataContainer from "@/models/marvel/comic/ComicDataContainer";
 import {EntityEnum} from "@/models/marvel/base/EntityEnum";
 import PaginationRow from "@/components/PaginationRow.vue";
-import Comic from "@/models/marvel/comic/Comic";
-import ComicsTable from "@/components/entityTable/ComicsTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
+import SeriesTable from "@/components/entityTable/SeriesTable.vue";
+import {marvelSeriesService} from "@/services/MarvelSeriesService";
+import Serie from "@/models/marvel/serie/Serie";
+import SerieDataContainer from "@/models/marvel/serie/SerieDataContainer";
 
 library.add(faSpinner);
 
 @Options({
   components: {
-    ComicsTable,
+    SeriesTable,
     PaginationRow
   }
 })
-export default class ComicsPaginated extends Vue {
+export default class SeriesPaginated extends Vue {
 
   paginatedResultsComics: PaginatedResults<PaginatedEntity> = new PaginatedResultsImpl();
 
@@ -67,8 +67,8 @@ export default class ComicsPaginated extends Vue {
   callApiMarvel(init: boolean) {
     this.loading = true;
     this.error = false;
-    marvelComicsService.getComicBy(this.filterBy, this.id, this.paginatedResultsComics.marvelSearchParams).then(() => {
-      const paginatedResults = ComicDataContainer.query().with("results").limit(1).first() as PaginatedResults<PaginatedEntity>;
+    marvelSeriesService.getSerieBy(this.filterBy, this.id, this.paginatedResultsComics.marvelSearchParams).then(() => {
+      const paginatedResults = SerieDataContainer.query().with("results").limit(1).first() as PaginatedResults<PaginatedEntity>;
       if (this.paginatedResultsComics) {
         this.paginatedResultsComics.offset = paginatedResults.offset;
         this.paginatedResultsComics.results = paginatedResults.results;
@@ -83,8 +83,8 @@ export default class ComicsPaginated extends Vue {
     });
   }
 
-  get comics() {
-    return Comic.all();
+  get series() {
+    return Serie.all();
   }
 
 }

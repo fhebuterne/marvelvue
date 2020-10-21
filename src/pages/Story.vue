@@ -39,7 +39,7 @@
             Les séries liées à l'histoire <b>{{ story?.name }}</b>
           </template>
           <template v-slot:body>
-            <SeriesTable :series="series"></SeriesTable>
+            <SeriesPaginated :id="storyId" :filterBy="'STORY'"></SeriesPaginated>
           </template>
         </CardToggle>
       </div>
@@ -72,10 +72,9 @@ import Character from "@/models/marvel/character/Character";
 import StoryRow from "@/components/entityRow/StoryRow.vue";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
-import {marvelSeriesService} from "@/services/MarvelSeriesService";
 import {marvelEventsService} from "@/services/MarvelEventsService";
-import Serie from "@/models/marvel/serie/Serie";
 import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
+import SeriesPaginated from "@/components/entityPaginated/SeriesPaginated.vue";
 
 library.add(faSpinner)
 
@@ -86,7 +85,8 @@ library.add(faSpinner)
     EventsTable,
     SeriesTable,
     CharactersTable,
-    ComicsPaginated
+    ComicsPaginated,
+    SeriesPaginated
   }
 })
 export default class Story extends Vue {
@@ -99,7 +99,6 @@ export default class Story extends Vue {
       }
     });
     marvelCharactersService.getCharactersByStory(storyId);
-    marvelSeriesService.getSeriesByStory(storyId);
     marvelEventsService.getEventsByStory(storyId);
   }
 
@@ -117,10 +116,6 @@ export default class Story extends Vue {
 
   get events() {
     return Event.all();
-  }
-
-  get series() {
-    return Serie.all();
   }
 
 }

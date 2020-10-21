@@ -39,7 +39,7 @@
             Les séries liées au personnage <b>{{ character?.name }}</b>
           </template>
           <template v-slot:body>
-            <SeriesTable :series="series"></SeriesTable>
+            <SeriesPaginated :id="characterId" :filterBy="'CHARACTER'"></SeriesPaginated>
           </template>
         </CardToggle>
       </div>
@@ -62,20 +62,18 @@
 import {Options, Vue} from 'vue-class-component';
 import {marvelEventsService} from "@/services/MarvelEventsService";
 import Event from "@/models/marvel/event/Event";
-import {marvelSeriesService} from "@/services/MarvelSeriesService";
-import Serie from "@/models/marvel/serie/Serie";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
 import Story from "@/models/marvel/story/Story";
 import CharacterModel from "@/models/marvel/character/Character";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import CardToggle from "@/components/CardToggle.vue";
 import EventsTable from "@/components/entityTable/EventsTable.vue";
-import SeriesTable from "@/components/entityTable/SeriesTable.vue";
 import StoriesTable from "@/components/entityTable/StoriesTable.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import CharacterRow from "@/components/entityRow/CharacterRow.vue";
 import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
+import SeriesPaginated from "@/components/entityPaginated/SeriesPaginated.vue";
 
 library.add(faSpinner)
 
@@ -84,8 +82,8 @@ library.add(faSpinner)
     CharacterRow,
     CardToggle,
     ComicsPaginated,
+    SeriesPaginated,
     EventsTable,
-    SeriesTable,
     StoriesTable
   }
 })
@@ -99,7 +97,6 @@ export default class Character extends Vue {
       }
     });
     marvelEventsService.getEventsByCharacter(characterId);
-    marvelSeriesService.getSeriesByCharacter(characterId);
     marvelStoriesService.getStoriesByCharacter(characterId);
   }
 
@@ -113,10 +110,6 @@ export default class Character extends Vue {
 
   get events() {
     return Event.all();
-  }
-
-  get series() {
-    return Serie.all();
   }
 
   get stories() {
