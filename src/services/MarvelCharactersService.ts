@@ -44,6 +44,10 @@ class MarvelCharactersService {
             return this.getCharactersByComic(id, marvelSearchParams)
         }
 
+        if (entityEnum == EntityEnum.EVENT) {
+            return this.getCharactersByEvent(id, marvelSearchParams)
+        }
+
         return this.getCharactersByStory(id, marvelSearchParams)
     }
 
@@ -105,6 +109,16 @@ class MarvelCharactersService {
         this.resetVuex();
 
         return CharacterDataContainer.api().get(this.getBaseUrl("series", serieId, marvelSearchParams), {
+            dataTransformer: (response) => {
+                return response.data.data;
+            }
+        });
+    }
+
+    getCharactersByEvent(eventId: string, marvelSearchParams?: MarvelSearchParams) {
+        this.resetVuex();
+
+        return CharacterDataContainer.api().get(this.getBaseUrl("events", eventId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }

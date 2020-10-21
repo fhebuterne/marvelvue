@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col">
-        <h2 class="text-center text-white">Serie</h2>
-        <SerieRow v-if="serie" :serie="serie"></SerieRow>
+        <h2 class="text-center text-white">Evènement</h2>
+        <EventRow v-if="event" :event="event"></EventRow>
       </div>
       <div class="col-3"></div>
     </div>
@@ -13,20 +13,20 @@
       <div class="col-6">
         <CardToggle>
           <template v-slot:header>
-            Les personnages liés à la série <b>{{ serie?.name }}</b>
+            Les personnages liés à l'évènement <b>{{ event?.name }}</b>
           </template>
           <template v-slot:body>
-            <CharactersPaginated :id="serieId" :filterBy="'SERIE'"></CharactersPaginated>
+            <CharactersPaginated :id="eventId" :filterBy="'EVENT'"></CharactersPaginated>
           </template>
         </CardToggle>
       </div>
       <div class="col-6">
         <CardToggle>
           <template v-slot:header>
-            Les évènements liés à la série <b>{{ serie?.name }}</b>
+            Les comics liés à l'évènement <b>{{ event?.name }}</b>
           </template>
           <template v-slot:body>
-            <EventsPaginated :id="serieId" :filterBy="'SERIE'"></EventsPaginated>
+            <ComicsPaginated :id="eventId" :filterBy="'EVENT'"></ComicsPaginated>
           </template>
         </CardToggle>
       </div>
@@ -36,10 +36,10 @@
       <div class="col-6">
         <CardToggle>
           <template v-slot:header>
-            Les histoires liées à la série <b>{{ serie?.name }}</b>
+            Les séries liés à l'évènement <b>{{ event?.name }}</b>
           </template>
           <template v-slot:body>
-            <StoriesPaginated :id="serieId" :filterBy="'SERIE'"></StoriesPaginated>
+            <SeriesPaginated :id="eventId" :filterBy="'EVENT'"></SeriesPaginated>
           </template>
         </CardToggle>
       </div>
@@ -47,10 +47,10 @@
       <div class="col-6">
         <CardToggle>
           <template v-slot:header>
-            Les comics liés à la série <b>{{ serie?.name }}</b>
+            Les histoires liées à l'évènement <b>{{ event?.name }}</b>
           </template>
           <template v-slot:body>
-            <ComicsPaginated :id="serieId" :filterBy="'SERIE'"></ComicsPaginated>
+            <StoriesPaginated :id="eventId" :filterBy="'EVENT'"></StoriesPaginated>
           </template>
         </CardToggle>
       </div>
@@ -60,45 +60,45 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
+import EventModel from "@/models/marvel/event/Event";
 import CardToggle from "@/components/CardToggle.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
-import {marvelSeriesService} from "@/services/MarvelSeriesService";
-import SerieRow from "@/components/entityRow/SerieRow.vue";
-import SerieModel from "@/models/marvel/serie/Serie";
-import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
+import {marvelEventsService} from "@/services/MarvelEventsService";
 import StoriesPaginated from "@/components/entityPaginated/StoriesPaginated.vue";
 import CharactersPaginated from "@/components/entityPaginated/CharactersPaginated.vue";
-import EventsPaginated from "@/components/entityPaginated/EventsPaginated.vue";
+import EventRow from "@/components/entityRow/EventRow.vue";
+import SeriesPaginated from "@/components/entityPaginated/SeriesPaginated.vue";
+import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
 
 library.add(faSpinner)
 
 @Options({
   components: {
-    SerieRow,
+    EventRow,
     CardToggle,
-    EventsPaginated,
-    CharactersPaginated,
+    ComicsPaginated,
+    SeriesPaginated,
     StoriesPaginated,
-    ComicsPaginated
+    CharactersPaginated
   }
 })
-export default class Serie extends Vue {
+export default class Event extends Vue {
 
   mounted() {
-    const serieId = this.$route.params.id.toString();
-    marvelSeriesService.getSerie(serieId).catch(error => {
+    const eventId = this.$route.params.id.toString();
+    marvelEventsService.getEvent(eventId).catch(error => {
       if (error.response.status == 404) {
         this.$router.push("/notfound");
       }
     });
   }
 
-  get serie() {
-    return SerieModel.find(this.$route.params.id.toString());
+  get event() {
+    return EventModel.find(this.$route.params.id.toString());
   }
 
-  get serieId() {
+  get eventId() {
     return this.$route.params.id.toString();
   }
 

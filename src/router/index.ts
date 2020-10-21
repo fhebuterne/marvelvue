@@ -34,6 +34,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../pages/Serie.vue')
   },
   {
+    path: '/event/:id',
+    name: 'Event',
+    component: () => import('../pages/Event.vue')
+  },
+  {
     path: '/:allPath(.*)*',
     name: 'NotFound',
     component: NotFound

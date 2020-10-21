@@ -25,6 +25,10 @@ class MarvelSeriesService {
             return this.getSeriesByStory(id, marvelSearchParams)
         }
 
+        if (entityEnum == EntityEnum.EVENT) {
+            return this.getSeriesByEvent(id, marvelSearchParams)
+        }
+
         return this.getSeriesByCharacter(id, marvelSearchParams)
     }
 
@@ -67,6 +71,16 @@ class MarvelSeriesService {
         this.resetVuex();
 
         return SerieDataContainer.api().get(this.getBaseUrl("stories", storyId, marvelSearchParams), {
+            dataTransformer: (response) => {
+                return response.data.data;
+            }
+        });
+    }
+
+    getSeriesByEvent(eventId: string, marvelSearchParams?: MarvelSearchParams) {
+        this.resetVuex();
+
+        return SerieDataContainer.api().get(this.getBaseUrl("events", eventId, marvelSearchParams), {
             dataTransformer: (response) => {
                 return response.data.data;
             }
