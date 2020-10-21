@@ -5,7 +5,7 @@
       <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
           <h1 class="display-4 mb-5">404 - Page introuvable</h1>
-          <button class="btn btn-secondary" @click="redirectToHome()">Accueil</button>
+          <button class="btn btn-dark" @click="redirectToHome()">Accueil</button>
         </div>
       </div>
     </div>
