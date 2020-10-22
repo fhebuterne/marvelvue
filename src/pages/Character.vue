@@ -63,15 +63,11 @@ import {Options, Vue} from 'vue-class-component';
 import CharacterModel from "@/models/marvel/character/Character";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import CardToggle from "@/components/CardToggle.vue";
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import CharacterRow from "@/components/entityRow/CharacterRow.vue";
 import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
 import SeriesPaginated from "@/components/entityPaginated/SeriesPaginated.vue";
 import StoriesPaginated from "@/components/entityPaginated/StoriesPaginated.vue";
 import EventsPaginated from "@/components/entityPaginated/EventsPaginated.vue";
-
-library.add(faSpinner)
 
 @Options({
   components: {
@@ -104,14 +100,3 @@ export default class Character extends Vue {
 
 }
 </script>
-
-<style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-{
-  opacity: 0;
-}
-</style>

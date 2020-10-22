@@ -19,18 +19,12 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faSearch, faSpinner, faUserSecret} from "@fortawesome/free-solid-svg-icons";
 import CharacterDataContainer from "@/models/marvel/character/CharacterDataContainer";
 import PaginationRow from "@/components/PaginationRow.vue";
 import PaginatedResults from "@/models/base/PaginatedResults";
 import PaginatedEntity from "@/models/base/PaginatedEntity";
 import {marvelCharactersService} from "@/services/MarvelCharactersService";
 import CharacterRow from "@/components/entityRow/CharacterRow.vue";
-
-library.add(faUserSecret)
-library.add(faSearch)
-library.add(faSpinner)
 
 @Options({
   components: {

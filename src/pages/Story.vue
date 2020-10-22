@@ -61,8 +61,6 @@
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
 import CardToggle from "@/components/CardToggle.vue";
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import StoryModel from "@/models/marvel/story/Story";
 import StoryRow from "@/components/entityRow/StoryRow.vue";
 import {marvelStoriesService} from "@/services/MarvelStoriesService";
@@ -70,8 +68,6 @@ import ComicsPaginated from "@/components/entityPaginated/ComicsPaginated.vue";
 import SeriesPaginated from "@/components/entityPaginated/SeriesPaginated.vue";
 import CharactersPaginated from "@/components/entityPaginated/CharactersPaginated.vue";
 import EventsPaginated from "@/components/entityPaginated/EventsPaginated.vue";
-
-library.add(faSpinner)
 
 @Options({
   components: {
@@ -104,14 +100,3 @@ export default class Story extends Vue {
 
 }
 </script>
-
-<style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-{
-  opacity: 0;
-}
-</style>

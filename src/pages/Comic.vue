@@ -55,15 +55,11 @@
 import {Options, Vue} from 'vue-class-component';
 import {marvelComicsService} from "@/services/MarvelComicsService";
 import CardToggle from "@/components/CardToggle.vue";
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import ComicRow from "@/components/entityRow/ComicRow.vue";
 import ComicModel from "@/models/marvel/comic/Comic";
 import StoriesPaginated from "@/components/entityPaginated/StoriesPaginated.vue";
 import CharactersPaginated from "@/components/entityPaginated/CharactersPaginated.vue";
 import EventsPaginated from "@/components/entityPaginated/EventsPaginated.vue";
-
-library.add(faSpinner)
 
 @Options({
   components: {
@@ -95,14 +91,3 @@ export default class Comic extends Vue {
 
 }
 </script>
-
-<style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-{
-  opacity: 0;
-}
-</style>
