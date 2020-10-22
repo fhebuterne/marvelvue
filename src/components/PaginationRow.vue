@@ -9,7 +9,7 @@
         <div class="btn-group mr-2" role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" @click="previousPage()" @disabled="isFirstPage">« Précédent
           </button>
-          <button type="button" class="btn btn-secondary" @click="previousPage()" v-if="currentPage > 1">1</button>
+          <button type="button" class="btn btn-secondary" @click="setFirstPage(1)" v-if="currentPage > 1">1</button>
           <button type="button" class="btn btn-secondary active">{{ currentPage }}</button>
           <button type="button" class="btn btn-secondary" @click="nextPage()" v-if="isNextPageAvailable()">
             {{ currentPage + 1 }}
@@ -54,6 +54,13 @@ export default class PaginationRow extends Vue {
     }
 
     return ((this.paginatedResults.currentPage + 1) * this.paginatedResults.limit) - this.paginatedResults.limit < this.paginatedResults.total;
+  }
+
+  setFirstPage(): void {
+    this.currentPage = 1;
+    this.paginatedResults.currentPage = 1;
+    this.paginatedResults.offset = 0;
+    this.updatePagination();
   }
 
   previousPage(): void {
